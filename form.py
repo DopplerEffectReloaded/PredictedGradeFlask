@@ -4,6 +4,14 @@ import mysql.connector, os
 db = mysql.connector.connect(user='root', password='predictedgrade', host='localhost',database='predictedgrade')
 cursor = db.cursor()
 
+
+password_data = {}
+with open("password.txt") as data:
+    for line in data:
+        name, var = line.partition("=")[::2]
+        password_data[name.strip()] = var
+
+
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
 PE3_WEIGHTAGE = 0.3
@@ -131,29 +139,63 @@ def newAccount():
 def accountDone():
     email = request.form['email']
     password = request.form['password']
+    print(password)
     # cursor.execute(f'')
 
     if (request.form['password'] != request.form['password_confirm']):
         return render_template('newAccount.html', message = "The two passwords do not match")
-    
+
     try:
-        cursor.execute(f'insert into password (Email, Password) values(\'{str(email)}\', \'{str(password)}\')')
-        db.commit()
-        return render_template('accountDone.html')
-    except mysql.connector.IntegrityError:
+        dummy = password_data[email]
         return render_template('newAccount.html', message = "This account already exists")
+        
+    except:
+
+        if (email[-12:] == 'chirec.ac.in'):
+
+            with open('password.txt', 'a') as data:
+                data.write(f'\n{email}={password}')
+            with open("password.txt") as data:
+                for line in data:
+                    name, var = line.partition("=")[::2]
+                    password_data[name.strip()] = var
+            return render_template('accountDone.html')
+        else:
+            return render_template('newAccount.html', message = "Please use an official CHIREC email id to register")
+    
+    # for i in data:
+    #     em, pwd = i.split('=') 
+    #     if em == email:
+    #         return render_template('newAccount.html', message = "This account already exists")
+    #     else:
+    #         data.write(f'{email}={password}\n')
+    #         return render_template('accountDone.html')
+            
+    # try:
+        
+        
+    #     cursor.execute(f'insert into password (Email, Password) values(\'{str(email)}\', \'{str(password)}\')')
+    #     db.commit()
+    #     return render_template('accountDone.html')
+    # except mysql.connector.IntegrityError:
+        # return render_template('newAccount.html', message = "This account already exists")
 
 
 
 @app.route('/input', methods = ['GET', 'POST'])
 def input():
-    email = str(request.form['email'])
-    cursor.execute(f'select Password from password where email=\'{(str(email))}\'')
-    res = str(cursor.fetchall())
-    res = res[3:-4]
     if request.method == 'POST':
+        email = str(request.form['email'])
+        # cursor.execute(f'select Password from password where email=\'{(str(email))}\'')
+        # res = str(cursor.fetchall())
+        # res = res[3:-4]
+        try:
+            file_pass = password_data[email]
+        except:
+            return render_template('index.html', message = "Login failed, try again")
 
-        if (str(request.form['password']) == str(res)):
+
+        if (str(request.form['password']) == file_pass):
             # insert form prepopulation logic - EXAMPLE
             # form_values = {
             #     'name': 'John Doe',
