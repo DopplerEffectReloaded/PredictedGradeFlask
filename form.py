@@ -119,7 +119,7 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
-   return render_template('login.html')
+   return render_template('../index.html')
 
 
 @app.route('/newAccount', methods = ['GET', 'POST'])
@@ -165,7 +165,7 @@ def input():
 
             return render_template('inputForm.html')
         else:
-            return render_template('login.html', message = "Login failed, try again")
+            return render_template('../index.html', message = "Login failed, try again")
 
 
 
