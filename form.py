@@ -1,9 +1,4 @@
 from flask import Flask, request, render_template
-import mysql.connector, os
-
-db = mysql.connector.connect(user='root', password='predictedgrade', host='localhost',database='predictedgrade')
-cursor = db.cursor()
-
 
 password_data = {}
 with open("password.txt") as data:
