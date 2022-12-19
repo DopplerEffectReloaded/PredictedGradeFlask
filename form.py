@@ -11,7 +11,7 @@ PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
 PE3_WEIGHTAGE = 0.3
 PEY_WEIGHTAGE = 0.4
-# Cases to handle: computer_scienceHL, computer_scienceSL, hindiHL, spanishABHL, frenchABHL, spanishBHL, frenchBHL, ESS
+# Cases to handle: hindiHL, spanishABHL, frenchABHL, spanishBHL, frenchBHL, ESS
 englishHL = [12, 25, 35, 49, 61, 76, 100]
 englishSL = [9, 22, 34, 45, 59, 76, 100]
 spanishBSL = [5, 11, 24, 40, 56, 74, 100]
@@ -43,6 +43,8 @@ business_managementHL = [10, 24, 33, 45, 54, 64, 100]
 business_managementSL = [9, 17, 26, 39, 53, 66, 100]
 computer_scienceHL = [10, 15, 21, 34, 48, 62, 100]
 computer_scienceSL = [5, 10, 26, 36, 48, 61, 100]
+essSL = [29, 39, 49, 59, 71, 84, 100]
+essHL = [29, 39, 49, 59, 71, 84, 100]
 
 def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
     '''This function takes your marks as input and then predicts 
