@@ -5,6 +5,8 @@ with open("password.txt") as data:
     for line in data:
         name, var = line.partition("=")[::2]
         password_data[name.strip()] = var.strip()
+print(password_data)    
+
 
 
 
@@ -192,7 +194,7 @@ def accountDone():
             with open("password.txt") as data:
                 for line in data:
                     name, var = line.partition("=")[::2]
-                    password_data[name.strip()] = var
+                    password_data[name.strip()] = var.strip()
             return render_template('accountDone.html')
         else:
             return render_template('newAccount.html', message = "Please use an official CHIREC email id to register")
@@ -220,11 +222,13 @@ def accountDone():
 def input():
     if request.method == 'POST':
         email = str(request.form['email'])
+        print(email)
         # cursor.execute(f'select Password from password where email=\'{(str(email))}\'')
         # res = str(cursor.fetchall())
         # res = res[3:-4]
         try:
             file_pass = password_data[email]
+            print(file_pass)
         except:
             return render_template('index.html', message = "Email not found")
 
