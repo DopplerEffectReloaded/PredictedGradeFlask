@@ -4,7 +4,8 @@ password_data = {}
 with open("password.txt") as data:
     for line in data:
         name, var = line.partition("=")[::2]
-        password_data[name.strip()] = var
+        password_data[name.strip()] = var.strip()
+
 
 
 PE1_WEIGHTAGE = 0.1
@@ -12,39 +13,75 @@ PE2_WEIGHTAGE = 0.1
 PE3_WEIGHTAGE = 0.3
 PEY_WEIGHTAGE = 0.4
 # Cases to handle: hindiHL, spanishABHL, frenchABHL, spanishBHL, frenchBHL, ESS
-englishHL = [12, 25, 35, 49, 61, 76, 100]
-englishSL = [9, 22, 34, 45, 59, 76, 100]
-spanishBSL = [5, 11, 24, 40, 56, 74, 100]
-frenchBSL = [9, 20, 32, 48, 64, 79, 100]
+# englishHL = [12, 25, 35, 49, 61, 76, 100]
+# englishSL = [9, 22, 34, 45, 59, 76, 100]
+# spanishBSL = [5, 11, 24, 40, 56, 74, 100]
+# frenchBSL = [9, 20, 32, 48, 64, 79, 100]
+# hindiBSL = [8, 19, 34, 48, 63, 78, 100]
+# spanishABSL = [11, 22, 34, 49, 62, 77, 100]
+# frenchABSL = [10, 22, 36, 52, 65, 81, 100]
+# math_aaHL = [3, 11, 23, 37, 52, 68, 100]
+# math_aiHL = [3, 9, 18, 32, 46, 61, 100]
+# math_aaSL = [3, 11, 22, 39, 57, 71, 100]
+# math_aiSL = [3, 12, 24, 38, 54, 69, 100]
+# physicsHL = [13, 19, 28, 38, 53, 68, 100]
+# physicsSL = [9, 14, 25, 36, 49, 62, 100]
+# chemistryHL = [14, 19, 34, 49, 66, 79, 100]
+# chemistrySL = [4, 9, 23, 45, 60, 75, 100]
+# biologyHL = [15, 23, 33, 46, 58, 75, 100]
+# biologySL = [11, 21, 30, 43, 58, 74, 100]
+# psychologyHL = [7, 16, 28, 41, 52, 65, 100]
+# psychologySL = [5, 11, 18, 35, 49, 65, 100]
+# digital_societiesHL = [29, 39, 49, 59, 71, 84, 100]
+# digital_societiesSL = [29, 39, 49, 59, 71, 84, 100]
+# global_politicsHL = [9, 19, 28, 39, 50, 61, 100]
+# global_politicsSL = [6, 18, 28, 37, 48, 58, 100]
+# visual_artsHL = [7, 17, 33, 47, 62, 76, 100]
+# visual_artsSL = [8, 17, 31, 45, 62, 76, 100]
+# economicsHL = [8, 17, 26, 39, 53, 66, 100]
+# economicsSL = [9, 19, 30, 43, 58, 71, 100]
+# business_managementHL = [10, 24, 33, 45, 54, 64, 100]
+# business_managementSL = [9, 17, 26, 39, 53, 66, 100]
+# computer_scienceHL = [10, 15, 21, 34, 48, 62, 100]
+# computer_scienceSL = [5, 10, 26, 36, 48, 61, 100]
+# essSL = [29, 39, 49, 59, 71, 84, 100]
+# essHL = [29, 39, 49, 59, 71, 84, 100]
+
+
+englishHL = [12, 28, 45, 58, 68, 82, 100]
+englishSL = [12, 28, 44, 58, 68, 82, 100]
+spanishBSL = [13, 29, 48, 61, 73, 86, 100]
+frenchBSL = [14, 29, 46, 59, 72, 85, 100]
 hindiBSL = [8, 19, 34, 48, 63, 78, 100]
-spanishABSL = [11, 22, 34, 49, 62, 77, 100]
-frenchABSL = [10, 22, 36, 52, 65, 81, 100]
+spanishABSL = [11, 25, 41, 56, 70, 84, 100]
+frenchABSL = [15, 33, 48, 61, 71, 83, 100]
 math_aaHL = [3, 11, 23, 37, 52, 68, 100]
 math_aiHL = [3, 9, 18, 32, 46, 61, 100]
 math_aaSL = [3, 11, 22, 39, 57, 71, 100]
 math_aiSL = [3, 12, 24, 38, 54, 69, 100]
-physicsHL = [13, 19, 28, 38, 53, 68, 100]
-physicsSL = [9, 14, 25, 36, 49, 62, 100]
-chemistryHL = [14, 19, 34, 49, 66, 79, 100]
-chemistrySL = [4, 9, 23, 45, 60, 75, 100]
-biologyHL = [15, 23, 33, 46, 58, 75, 100]
-biologySL = [11, 21, 30, 43, 58, 74, 100]
-psychologyHL = [7, 16, 28, 41, 52, 65, 100]
-psychologySL = [5, 11, 18, 35, 49, 65, 100]
-digital_societiesHL = [29, 39, 49, 59, 71, 84, 100]
-digital_societiesSL = [29, 39, 49, 59, 71, 84, 100]
-global_politicsHL = [9, 19, 28, 39, 50, 61, 100]
-global_politicsSL = [6, 18, 28, 37, 48, 58, 100]
-visual_artsHL = [7, 17, 33, 47, 62, 76, 100]
-visual_artsSL = [8, 17, 31, 45, 62, 76, 100]
-economicsHL = [8, 17, 26, 39, 53, 66, 100]
-economicsSL = [9, 19, 30, 43, 58, 71, 100]
-business_managementHL = [10, 24, 33, 45, 54, 64, 100]
-business_managementSL = [9, 17, 26, 39, 53, 66, 100]
-computer_scienceHL = [10, 15, 21, 34, 48, 62, 100]
-computer_scienceSL = [5, 10, 26, 36, 48, 61, 100]
-essSL = [29, 39, 49, 59, 71, 84, 100]
+physicsHL = [14, 25, 38, 48, 58, 68, 100]
+physicsSL = [13, 24, 35, 45, 56, 66, 100]
+chemistryHL = [15, 30, 42, 53, 65, 76, 100]
+chemistrySL = [14, 28, 43, 54, 64, 75, 100]
+biologyHL = [15, 27, 41, 54, 67, 80, 100]
+biologySL = [14, 26, 41, 54, 65, 78, 100]
+psychologyHL = [9, 19, 36, 49, 60, 74, 100]
+psychologySL = [10, 22, 37, 49, 59, 71, 100]
+digital_societiesHL = [12, 25, 40, 51, 60, 71, 100]
+digital_societiesSL = [10, 22, 34, 46, 57, 69, 100]
+global_politicsHL = [10, 21, 35, 47, 59, 72, 100]
+global_politicsSL = [10, 22, 36, 45, 59, 68, 100]
+visual_artsHL = [12, 25, 40, 54, 70, 84, 100]
+visual_artsSL = [12, 25, 40, 53, 70, 84, 100]
+economicsHL = [13, 26, 37, 49, 62, 74, 100]
+economicsSL = [11, 25, 38, 50, 63, 75, 100]
+business_managementHL = [13, 27, 37, 48, 57, 68, 100]
+business_managementSL = [15, 32, 44, 53, 66, 76, 100]
+computer_scienceHL = [15, 32, 44, 52, 60, 69, 100]
+computer_scienceSL = [14, 20, 43, 51, 60, 68, 100]
 essHL = [29, 39, 49, 59, 71, 84, 100]
+essSL = [29, 39, 49, 59, 71, 84, 100]
+
 
 def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
     '''This function takes your marks as input and then predicts 
@@ -136,8 +173,8 @@ def newAccount():
 def accountDone():
     email = request.form['email']
     password = request.form['password']
-    print(password)
-    # cursor.execute(f'')
+    if (('=' in email) or ('=' in password)):
+        return render_template('newAccount.html', message = "You cannot have '=' in your email id or password")
 
     if (request.form['password'] != request.form['password_confirm']):
         return render_template('newAccount.html', message = "The two passwords do not match")
@@ -189,7 +226,7 @@ def input():
         try:
             file_pass = password_data[email]
         except:
-            return render_template('index.html', message = "Login failed, try again")
+            return render_template('index.html', message = "Email not found")
 
 
         if (str(request.form['password']) == file_pass):
@@ -204,7 +241,7 @@ def input():
 
             return render_template('inputForm.html')
         else:
-            return render_template('index.html', message = "Login failed, try again")
+            return render_template('index.html', message = "Password is incorrect")
 
 
 
@@ -253,6 +290,25 @@ def index():
     pe2_6 = int(request.form.get('Subject 6 PE2')) if request.form.get('Subject 6 PE2') else None
     pe3_6 = int(request.form.get('Subject 6 PE3')) if request.form.get('Subject 6 PE3') else None
     pey_6 = int(request.form.get('Subject 6 PEY2')) if request.form.get('Subject 6 PEY2') else None
+
+    # NO HL SUBJECTS : spanishB, frenchB, hindiB, spanishAB, frenchAB
+    if ((subject1 == 'spanishB' or subject1 == 'frenchB' or subject1 == 'hindiB' or subject1 == 'spanishAB' or subject1 == 'frenchAB') and (level1 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 1")
+
+    if ((subject2 == 'spanishB' or subject2 == 'frenchB' or subject2 == 'hindiB' or subject2 == 'spanishAB' or subject2 == 'frenchAB') and (level2 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 2")
+    
+    if ((subject3 == 'spanishB' or subject3 == 'frenchB' or subject3 == 'hindiB' or subject3 == 'spanishAB' or subject3 == 'frenchAB') and (level3 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 3")
+
+    if ((subject4 == 'spanishB' or subject4 == 'frenchB' or subject4 == 'hindiB' or subject4 == 'spanishAB' or subject4 == 'frenchAB') and (level4 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 4")
+
+    if ((subject5 == 'spanishB' or subject5 == 'frenchB' or subject5 == 'hindiB' or subject5 == 'spanishAB' or subject5 == 'frenchAB') and (level5 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 5")
+
+    if ((subject6 == 'spanishB' or subject6 == 'frenchB' or subject6 == 'hindiB' or subject6 == 'spanishAB' or subject6 == 'frenchAB') and (level6 == 'HL')):
+        return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 6")
     
     # subject1 = request.form['Subject 1'] if request.form['Subject 1'] else None
     # level1 = request.form['Subject 1 Level'] if request.form['Subject 1 Level'] else None

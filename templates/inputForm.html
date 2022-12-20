@@ -14,10 +14,15 @@
     padding: 0.25em;
     width: 100%;
   }
+  .error {
+    color: red;
+    font-weight: bold;
+    }
 </style>
 
 
 <img src="../static/logo.jpg" width="180" height="81">
+<p class="error">{{message}}</p>
 <form method="post" action = "/result" enctype = "multipart/form-data">
   <label>Subject 1:</label>
   <select name="Subject 1">
