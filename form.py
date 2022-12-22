@@ -84,6 +84,28 @@ computer_scienceSL = [14, 20, 43, 51, 60, 68, 100]
 essHL = [29, 39, 49, 59, 71, 84, 100]
 essSL = [29, 39, 49, 59, 71, 84, 100]
 
+subName = {
+    'english' : 'English',
+    'spanishB' : 'Spanish B',
+    'frenchB' : 'French B',
+    'hindiB' : 'Hindi B',
+    'spanishAB' : 'Spanish AB',
+    'frenchAB' : 'French AB',
+    'math_aa' : 'Mathematics AA',
+    'math_ai' : 'Mathematics AI',
+    'physics' : 'Physics',
+    'chemistry' : 'Chemistry',
+    'biology' : 'Biology',
+    'psychology' : 'Psychology',
+    'digital_societies' : 'Digital Societies',
+    'global_politics' : 'Global Politics',
+    'visual_arts' : 'Visual Arts',
+    'economics' : 'Economics',
+    'business_management' : 'Business Management',
+    'computer_science' : 'Computer Science',
+    'ess' : 'ESS'
+}
+
 
 def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
     '''This function takes your marks as input and then predicts 
@@ -278,7 +300,7 @@ def index():
     level4 = (request.form.get('Subject 4 Level'))
     pe1_4 = int(request.form.get('Subject 4 PE1')) if request.form.get('Subject 4 PE1') else None
     pe2_4 = int(request.form.get('Subject 4 PE2')) if request.form.get('Subject 4 PE2') else None
-    pe3_4 = int(request.form.get('Subject 4 PE3')) if request.form.get('Subject 4 PE2') else None
+    pe3_4 = int(request.form.get('Subject 4 PE3')) if request.form.get('Subject 4 PE3') else None
     pey_4 = int(request.form.get('Subject 4 PEY2')) if request.form.get('Subject 4 PEY2') else None
 
     subject5 = (request.form.get('Subject 5'))
@@ -361,7 +383,7 @@ def index():
         key = subject1 + level1
         temp = Predictor(pe1_1, pe2_1, pe3_1, pey_1, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         print(temp)
-        form_values['subject_1'] = f'{subject1} {level1}'
+        form_values['subject_1'] = f'{subName[subject1]} {level1}'
         form_values['sub_1_grade'] = temp[0]
         form_values['sub1_nextGrade'] = temp[1]
         form_values['sub1_nextMarks'] = temp[2]
@@ -375,7 +397,7 @@ def index():
     if ((subject2 and level2 and pe1_2)):
         key = subject2 + level2
         temp = Predictor(pe1_2, pe2_2, pe3_2, pey_2, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        form_values['subject_2'] = f'{subject2} {level2}'
+        form_values['subject_2'] = f'{subName[subject2]} {level2}'
         form_values['sub_2_grade'] = temp[0]
         form_values['sub2_nextGrade'] = temp[1]
         form_values['sub2_nextMarks'] = temp[2]
@@ -389,7 +411,7 @@ def index():
     if ((subject3 and level3 and pe1_3)):
         key = subject3 + level3
         temp = Predictor(pe1_3, pe2_3, pe3_3, pey_3, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        form_values['subject_3'] = f'{subject3} {level3}'
+        form_values['subject_3'] = f'{subName[subject3]} {level3}'
         form_values['sub_3_grade'] = temp[0]
         form_values['sub3_nextGrade'] = temp[1]
         form_values['sub3_nextMarks'] = temp[2]
@@ -403,7 +425,7 @@ def index():
     if ((subject4 and level4 and pe1_4)):
         key = subject4 + level4
         temp = Predictor(pe1_4, pe2_4, pe3_4, pey_4, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        form_values['subject_4'] = f'{subject4} {level4}'
+        form_values['subject_4'] = f'{subName[subject4]} {level4}'
         form_values['sub_4_grade'] = temp[0]
         form_values['sub4_nextGrade'] = temp[1]
         form_values['sub4_nextMarks'] = temp[2]
@@ -418,7 +440,7 @@ def index():
     if ((subject5 and level5 and pe1_5)):
         key = subject5 + level5
         temp = Predictor(pe1_5, pe2_5, pe3_5, pey_5, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        form_values['subject_5'] = f'{subject5} {level5}'
+        form_values['subject_5'] = f'{subName[subject5]} {level5}'
         form_values['sub_5_grade'] = temp[0]
         form_values['sub5_nextGrade'] = temp[1]
         form_values['sub5_nextMarks'] = temp[2]
@@ -432,7 +454,7 @@ def index():
     if ((subject6 and level6 and pe1_6)):
         key = subject6 + level6
         temp = Predictor(pe1_6, pe2_6, pe3_6, pey_6, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        form_values['subject_6'] = f'{subject6} {level6}'
+        form_values['subject_6'] = f'{subName[subject6]} {level6}'
         form_values['sub_6_grade'] = temp[0]
         form_values['sub6_nextGrade'] = temp[1]
         form_values['sub6_nextMarks'] = temp[2]
