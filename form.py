@@ -278,7 +278,7 @@ def index():
     level4 = (request.form.get('Subject 4 Level'))
     pe1_4 = int(request.form.get('Subject 4 PE1')) if request.form.get('Subject 4 PE1') else None
     pe2_4 = int(request.form.get('Subject 4 PE2')) if request.form.get('Subject 4 PE2') else None
-    pe3_4 = int(request.form.get('Subject 4 PE3')) if request.form.get('Subject 4 PE2') else None
+    pe3_4 = int(request.form.get('Subject 4 PE3')) if request.form.get('Subject 4 PE3') else None
     pey_4 = int(request.form.get('Subject 4 PEY2')) if request.form.get('Subject 4 PEY2') else None
 
     subject5 = (request.form.get('Subject 5'))
