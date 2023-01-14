@@ -5,17 +5,11 @@ with open("password.txt") as data:
     for line in data:
         name, var = line.partition("=")[::2]
         password_data[name.strip()] = var.strip()
-print(password_data)    
-
-
-
 
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
 PE3_WEIGHTAGE = 0.3
 PEY_WEIGHTAGE = 0.4
-
-
 
 englishHL = [12, 28, 45, 58, 68, 82, 100]
 englishSL = [12, 28, 44, 58, 68, 82, 100]
@@ -73,7 +67,6 @@ subName = {
     'ess' : 'ESS'
 }
 
-
 def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
     '''This function takes your marks as input and then predicts 
     how many marks you need to obtain in your next exam to get the next grade according to the 
@@ -93,7 +86,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         if (future_grade - 7) >= 1:
             future_grade = 7
 
-            
         boundary = sub_grade[future_grade-2]
         future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
         return ([current_grade, future_grade, round(future_marks, 1)])
@@ -146,19 +138,15 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
             future_marks = 'N/A, all exams have been taken'
         return ([current_grade, future_grade, future_marks])
 
-
-
 app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
    return render_template('index.html')
 
-
 @app.route('/newAccount', methods = ['GET', 'POST'])
 def newAccount():
     return render_template('newAccount.html')
-
 
 @app.route('/accountDone', methods = ['GET', 'POST'])
 def accountDone():
@@ -188,9 +176,6 @@ def accountDone():
         else:
             return render_template('newAccount.html', message = "Please use an official CHIREC email id to register")
     
-
-
-
 @app.route('/input', methods = ['GET', 'POST'])
 def input():
     if request.method == 'POST':
@@ -202,7 +187,6 @@ def input():
             print(file_pass)
         except:
             return render_template('index.html', message = "Email not found")
-
 
         if (str(request.form['password']) == file_pass):
             # insert form prepopulation logic - EXAMPLE
@@ -217,8 +201,6 @@ def input():
             return render_template('inputForm.html')
         else:
             return render_template('index.html', message = "Password is incorrect")
-
-
 
 @app.route('/result', methods=['GET', 'POST'])
 def index():
@@ -285,8 +267,6 @@ def index():
     if ((subject6 == 'spanishB' or subject6 == 'frenchB' or subject6 == 'hindiB' or subject6 == 'spanishAB' or subject6 == 'frenchAB') and (level6 == 'HL')):
         return render_template('inputForm.html', message = "Invalid subject-level combination entered in subject 6")
     
-
-
     form_values = {}
 
     # SUBJECT 1
@@ -361,7 +341,7 @@ def index():
         form_values['sub5_nextGrade'] = 'Incomplete information provided'
         form_values['sub5_nextMarks'] = 'Incomplete information provided'
 
-    # SUBJECT 6 finally :)
+    # SUBJECT 6
     if ((subject6 and level6 and pe1_6)):
         key = subject6 + level6
         temp = Predictor(pe1_6, pe2_6, pe3_6, pey_6, globals().get(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
@@ -377,9 +357,6 @@ def index():
         form_values['sub6_nextMarks'] = 'Incomplete information provided'
         
     return render_template('result.html', form = form_values) 
-    
-    
-    # return f'Subject 1: {subject1} ({level1}) \n PE1: {pe1_1} \n PE2: {pe2_1} \n PE3: {pe3_1} \n PEY2: {pey_1} \n Subject 2: {subject2} ({level2}) \n PE1: {pe1_2} \n PE2: {pe2_2} \n PE3: {pe3_2} \n PEY2: {pey_2} \n Subject 3: {subject3} ({level3}) \n PE1: {pe1_3} \n PE2: {pe2_3} \n PE3: {pe3_3} \n PEY2: {pey_3} \n Subject 4: {subject4} ({level4}) \n PE1: {pe1_4} \n PE2: {pe2_4} \n PE3: {pe3_4} \n PEY2: {pey_4} \n Subject 5: {subject5} ({level5}) \n PE1: {pe1_5} \n PE2: {pe2_5} \n PE3: {pe3_5} \n PEY2: {pey_5} \n Subject 6: {subject6} ({level6}) \n PE1: {pe1_6} \n PE2: {pe2_6} \n PE3: {pe3_6} \n PEY2: {pey_6} \n'
     
 
 if __name__ == '__main__':
