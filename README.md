@@ -1,1 +1,2 @@
 # PredictedGradeFlask
+This is a flask application that IBDP students can use to calculate what grades they need to achieve in their next exams to get a higher predicted grade. The python function which mathematically calculates the grade is made by Aditya Dharap of IBDP in CHIREC International School, and the rest of the application, including the front end, flask routing and user input is made by me, Samatva Kasat, also of IBDP in CHIREC International School.
