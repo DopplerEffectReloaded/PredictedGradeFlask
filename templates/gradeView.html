@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        table, th, td {
+            border:1px solid black;
+        }
+
+    </style>
+<head>
+	<title>Student Grades</title>
+</head>
+<body>
+	<table style="width:100%">
+		<thead>
+			<tr>
+				<th>UID</th>
+				<th>Subject 1</th>
+				<th>Subject 1 PE1</th>
+                <th>Subject 1 PE2</th>
+                <th>Subject 1 PE3</th>
+                <th>Subject 1 PEY2</th>
+                <th>Subject 2</th>
+				<th>Subject 2 PE1</th>
+                <th>Subject 2 PE2</th>
+                <th>Subject 2 PE3</th>
+                <th>Subject 2 PEY2</th>
+                <th>Subject 3</th>
+				<th>Subject 3 PE1</th>
+                <th>Subject 3 PE2</th>
+                <th>Subject 3 PE3</th>
+                <th>Subject 3 PEY2</th>
+                <th>Subject 4</th>
+				<th>Subject 4 PE1</th>
+                <th>Subject 4 PE2</th>
+                <th>Subject 4 PE3</th>
+                <th>Subject 4 PEY2</th>
+                <th>Subject 5</th>
+				<th>Subject 5 PE1</th>
+                <th>Subject 5 PE2</th>
+                <th>Subject 5 PE3</th>
+                <th>Subject 5 PEY2</th>
+                <th>Subject 6</th>
+				<th>Subject 6 PE1</th>
+                <th>Subject 6 PE2</th>
+                <th>Subject 6 PE3</th>
+                <th>Subject 6 PEY2</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in data %}
+				<tr>
+					<td>{{ row[0] }}</td>
+					<td>{{ row[1] }}</td>
+					<td>{{ row[2] }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

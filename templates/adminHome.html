@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Home page</title>
+	<style>
+		/* CSS for buttons */
+		button {
+			background-color: #4CAF50; /* Green background color */
+			border: none; /* Remove border */
+			color: white; /* White text color */
+			padding: 10px 20px; /* Padding */
+			text-align: center; /* Center text */
+			text-decoration: none; /* Remove underline */
+			display: inline-block; /* Display as inline-block */
+			font-size: 16px; /* Font size */
+			margin: 4px 2px; /* Margin */
+			cursor: pointer; /* Cursor on hover */
+			border-radius: 5px; /* Rounded corners */
+		}
+
+		/* CSS for button hover effect */
+		button:hover {
+			background-color: #3e8e41; /* Darker green */
+		}
+
+		.error {
+    		color: red;
+    		font-weight: bold;
+    	}
+	</style>
+</head>
+<body>
+	<p class="error">{{message}}</p>
+	<form method="POST" action="/manage_grades">
+		<button type="submit">Manage grade boundaries</button>
+	</form>
+	<form method="POST" action="/view_grades">
+		<button type="submit">View Students' grades</button>
+	</form>
+</body>
+</html>

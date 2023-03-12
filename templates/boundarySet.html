@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Grade Boundaries Form</title>
+    <style>
+      /* Add your CSS styles here */
+      form {
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+      
+      h1 {
+        text-align: center;
+      }
+      
+      p {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .default-btn {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <p class="error">{{message}}</p>
+    <h1>{{subject_name}} Predicted Grade Boundaries</h1>
+    <p>Please enter the minimum marks needed to achieve each grade in each subject. For example, if the minimum mark needed for a grade 7 in a subject is 85, enter 85 in the input field below 'Grade 7'. Follow the same process for the other grades also. If you wish to use 2019 grade boundaries, leave the input fields blank. Note that there is no field for a grade of 1, as the minimum marks required for a grade of 1 is 0 by default.</p>
+    <form method="post" action="/boundary_set">
+      <fieldset>
+        <legend>{{subject_name}}</legend>
+        <div>
+          <label>Grade 7:</label>
+          <input type="number" name="grade_7">
+          <label>Grade 6:</label>
+          <input type="number" name="grade_6">
+          <label>Grade 5:</label>
+          <input type="number" name="grade_5">
+          <label>Grade 4:</label>
+          <input type="number" name="grade_4">
+          <label>Grade 3:</label>
+          <input type="number" name="grade_3">
+          <label>Grade 2:</label>
+          <input type="number" id="grade_2" name="grade_2">
+        </div>
+      </fieldset>
+      <input type="hidden" id="subject" name="subject" value={{subject}}>
+        <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
