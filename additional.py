@@ -67,6 +67,9 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
     how many marks you need to obtain in your next exam to get the next grade according to the 
     IB grade boundaries for all the exams'''
     
+    if PE1 is None:
+        return ('Incomplete information', 'Incomplete information', 'Incomplete information')
+    
     if PE2 is None:
 
         current_grade = 1           
@@ -178,3 +181,67 @@ def get_boundary(subName):
     boundary_string = cursor.fetchall()[0][0]
     boundary = str_to_list(boundary_string)
     return boundary
+
+def parse_db(uid):
+    uid = f'\'{uid}\''
+    cursor.execute(f'select * from marks where uid = {uid}')
+    db_data = cursor.fetchall()[0][1:]
+    
+    temp_1 = Predictor(db_data[1], db_data[2], db_data[3], db_data[4], get_boundary(db_data[0]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+    temp_2 = Predictor(db_data[6], db_data[7], db_data[8], db_data[9], get_boundary(db_data[5]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+    temp_3 = Predictor(db_data[11], db_data[12], db_data[13], db_data[14], get_boundary(db_data[10]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+    temp_4 = Predictor(db_data[16], db_data[17], db_data[18], db_data[19], get_boundary(db_data[15]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+    temp_5 = Predictor(db_data[21], db_data[22], db_data[23], db_data[24], get_boundary(db_data[20]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+    temp_6 = Predictor(db_data[26], db_data[27], db_data[28], db_data[29], get_boundary(db_data[25]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+
+    form_values = {     'subject_1': f'{subName[db_data[0][:-2]]} {db_data[0][-2:]}',
+                        'sub1_PE1': db_data[1],
+                        'sub1_PE2': db_data[2],
+                        'sub1_PE3': db_data[3],
+                        'sub1_PEY2': db_data[4],
+                        'sub1_grade': temp_1[0],
+                        'sub1_nextGrade': temp_1[1],
+                        'sub1_nextMarks': temp_1[2],
+                        'subject_2': f'{subName[db_data[5][:-2]]} {db_data[5][-2:]}',
+                        'sub2_PE1': db_data[6],
+                        'sub2_PE2': db_data[7],
+                        'sub2_PE3': db_data[8],
+                        'sub2_PEY2': db_data[9],
+                        'sub2_grade': temp_2[0],
+                        'sub2_nextGrade': temp_2[1],
+                        'sub2_nextMarks': temp_2[2],
+                        'subject_3': f'{subName[db_data[10][:-2]]} {db_data[10][-2:]}',
+                        'sub3_PE1': db_data[11],
+                        'sub3_PE2': db_data[12],
+                        'sub3_PE3': db_data[13],
+                        'sub3_PEY2': db_data[14],
+                        'sub3_grade': temp_3[0],
+                        'sub3_nextGrade': temp_3[1],
+                        'sub3_nextMarks': temp_3[2],
+                        'subject_4': f'{subName[db_data[15][:-2]]} {db_data[15][-2:]}',
+                        'sub4_PE1': db_data[16],
+                        'sub4_PE2': db_data[17],
+                        'sub4_PE3': db_data[18],
+                        'sub4_PEY2': db_data[19],
+                        'sub4_grade': temp_4[0],
+                        'sub4_nextGrade': temp_4[1],
+                        'sub4_nextMarks': temp_4[2],
+                        'subject_5': f'{subName[db_data[20][:-2]]} {db_data[20][-2:]}',
+                        'sub5_PE1': db_data[21],
+                        'sub5_PE2': db_data[22],
+                        'sub5_PE3': db_data[23],
+                        'sub5_PEY2': db_data[24],
+                        'sub5_grade': temp_5[0],
+                        'sub5_nextGrade': temp_5[1],
+                        'sub5_nextMarks': temp_5[2],
+                        'subject_6': f'{subName[db_data[25][:-2]]} {db_data[25][-2:]}',
+                        'sub6_PE1': db_data[26],
+                        'sub6_PE2': db_data[27],
+                        'sub6_PE3': db_data[28],
+                        'sub6_PEY2': db_data[29],
+                        'sub6_grade': temp_6[0],
+                        'sub6_nextGrade': temp_6[1],
+                        'sub6_nextMarks': temp_6[2],
+                        }
+    return form_values
+

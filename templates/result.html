@@ -20,43 +20,101 @@
       p {
         font-size: 16px;
       }
+
+      /* Style the mark box */
+      .marks-box {
+        border: 1px solid black;
+        padding: 10px;
+        margin-right: 10px;
+        width: 100px;
+        display: inline-block;
+        vertical-align: middle;
+       }
+
+  /* Style the marks heading */
+  .marks-heading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  /* Style the marks variables */
+  .marks-variable {
+    font-size: 14px;
+  }
     </style>
   </head>
   <body>
     <img src="../static/logo.jpg" width="180" height="81">
     <section>
       <h1>{{form.subject_1}}</h1>
-      <p>Current grade: {{form.sub_1_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub1_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub1_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub1_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub1_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub1_grade}}</p>
       <p>Next grade possible: {{form.sub1_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub1_nextMarks}}</p>
     </section>
     <section>
       <h1>{{form.subject_2}}</h1>
-      <p>Current grade: {{form.sub_2_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub2_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub2_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub2_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub2_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub2_grade}}</p>
       <p>Next grade possible: {{form.sub2_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub2_nextMarks}}</p>
     </section>
     <section>
       <h1>{{form.subject_3}}</h1>
-      <p>Current grade: {{form.sub_3_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub3_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub3_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub3_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub3_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub3_grade}}</p>
       <p>Next grade possible: {{form.sub3_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub3_nextMarks}}</p>
     </section>
     <section>
       <h1>{{form.subject_4}}</h1>
-      <p>Current grade: {{form.sub_4_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub4_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub4_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub4_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub4_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub4_grade}}</p>
       <p>Next grade possible: {{form.sub4_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub4_nextMarks}}</p>
     </section>
     <section>
       <h1>{{form.subject_5}}</h1>
-      <p>Current grade: {{form.sub_5_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub5_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub5_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub5_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub5_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub5_grade}}</p>
       <p>Next grade possible: {{form.sub5_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub5_nextMarks}}</p>
     </section>
     <section>
       <h1>{{form.subject_6}}</h1>
-      <p>Current grade: {{form.sub_6_grade}}</p>
+      <div class="marks-heading">Marks</div>
+        <div class="marks-variable">PE1 Marks: {{form.sub6_PE1}}</div>
+        <div class="marks-variable">PE2 Marks: {{form.sub6_PE2}}</div>
+        <div class="marks-variable">PE3 Marks: {{form.sub6_PE3}}</div>
+        <div class="marks-variable">PEY2 Marks: {{form.sub6_PEY2}}</div>
+      </div>
+      <p>Current grade: {{form.sub6_grade}}</p>
       <p>Next grade possible: {{form.sub6_nextGrade}}</p>
       <p>Minimum marks needed for next possible grade: {{form.sub6_nextMarks}}</p>
     </section>

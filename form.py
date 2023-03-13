@@ -43,7 +43,7 @@ def home():
 @app.route('/input', methods = ['GET', 'POST'])
 def input():
     if request.method == 'POST':
-        email = str(request.form['email'])
+        email = str(request.form['uid'])
         password = str(request.form['password'])
         # Check if account details match admin account
         admin = is_admin(email, password)
@@ -54,7 +54,7 @@ def input():
         else:
             # Check for student login
             if is_student(email, password):
-                return render_template('inputForm.html')
+                return render_template('result.html', form = parse_db(email))
             else:
                 return render_template('index.html', message = 'The username or password is incorrect')
         
@@ -161,14 +161,13 @@ def index():
     if ((subject1 and level1 and pe1_1)):
         key = subject1 + level1
         temp = Predictor(pe1_1, pe2_1, pe3_1, pey_1, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-        print(temp)
         form_values['subject_1'] = f'{subName[subject1]} {level1}'
-        form_values['sub_1_grade'] = temp[0]
+        form_values['sub1_grade'] = temp[0]
         form_values['sub1_nextGrade'] = temp[1]
         form_values['sub1_nextMarks'] = temp[2]
     else:
         form_values['subject_1'] = 'Incomplete information provided'
-        form_values['sub_1_grade'] = 'Incomplete information provided'
+        form_values['sub1_grade'] = 'Incomplete information provided'
         form_values['sub1_nextGrade'] = 'Incomplete information provided'
         form_values['sub1_nextMarks'] = 'Incomplete information provided'
     
@@ -177,12 +176,12 @@ def index():
         key = subject2 + level2
         temp = Predictor(pe1_2, pe2_2, pe3_2, pey_2, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         form_values['subject_2'] = f'{subName[subject2]} {level2}'
-        form_values['sub_2_grade'] = temp[0]
+        form_values['sub2_grade'] = temp[0]
         form_values['sub2_nextGrade'] = temp[1]
         form_values['sub2_nextMarks'] = temp[2]
     else:
         form_values['subject_2'] = 'Incomplete information provided'
-        form_values['sub_2_grade'] = 'Incomplete information provided'
+        form_values['sub2_grade'] = 'Incomplete information provided'
         form_values['sub2_nextGrade'] = 'Incomplete information provided'
         form_values['sub2_nextMarks'] = 'Incomplete information provided'
 
@@ -191,12 +190,12 @@ def index():
         key = subject3 + level3
         temp = Predictor(pe1_3, pe2_3, pe3_3, pey_3, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         form_values['subject_3'] = f'{subName[subject3]} {level3}'
-        form_values['sub_3_grade'] = temp[0]
+        form_values['sub3_grade'] = temp[0]
         form_values['sub3_nextGrade'] = temp[1]
         form_values['sub3_nextMarks'] = temp[2]
     else:
         form_values['subject_3'] = 'Incomplete information provided'
-        form_values['sub_3_grade'] = 'Incomplete information provided'
+        form_values['sub3_grade'] = 'Incomplete information provided'
         form_values['sub3_nextGrade'] = 'Incomplete information provided'
         form_values['sub3_nextMarks'] = 'Incomplete information provided'
 
@@ -205,12 +204,12 @@ def index():
         key = subject4 + level4
         temp = Predictor(pe1_4, pe2_4, pe3_4, pey_4, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         form_values['subject_4'] = f'{subName[subject4]} {level4}'
-        form_values['sub_4_grade'] = temp[0]
+        form_values['sub4_grade'] = temp[0]
         form_values['sub4_nextGrade'] = temp[1]
         form_values['sub4_nextMarks'] = temp[2]
     else:
         form_values['subject_4'] = 'Incomplete information provided'
-        form_values['sub_4_grade'] = 'Incomplete information provided'
+        form_values['sub4_grade'] = 'Incomplete information provided'
         form_values['sub4_nextGrade'] = 'Incomplete information provided'
         form_values['sub4_nextMarks'] = 'Incomplete information provided'
 
@@ -220,12 +219,12 @@ def index():
         key = subject5 + level5
         temp = Predictor(pe1_5, pe2_5, pe3_5, pey_5, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         form_values['subject_5'] = f'{subName[subject5]} {level5}'
-        form_values['sub_5_grade'] = temp[0]
+        form_values['sub5_grade'] = temp[0]
         form_values['sub5_nextGrade'] = temp[1]
         form_values['sub5_nextMarks'] = temp[2]
     else:
         form_values['subject_5'] = 'Incomplete information provided'
-        form_values['sub_5_grade'] = 'Incomplete information provided'
+        form_values['sub5_grade'] = 'Incomplete information provided'
         form_values['sub5_nextGrade'] = 'Incomplete information provided'
         form_values['sub5_nextMarks'] = 'Incomplete information provided'
 
@@ -234,13 +233,13 @@ def index():
         key = subject6 + level6
         temp = Predictor(pe1_6, pe2_6, pe3_6, pey_6, get_boundary(key), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         form_values['subject_6'] = f'{subName[subject6]} {level6}'
-        form_values['sub_6_grade'] = temp[0]
+        form_values['sub6_grade'] = temp[0]
         form_values['sub6_nextGrade'] = temp[1]
         form_values['sub6_nextMarks'] = temp[2]
 
     else:
         form_values['subject_6'] = 'Incomplete information provided'
-        form_values['sub_6_grade'] = 'Incomplete information provided'
+        form_values['sub6_grade'] = 'Incomplete information provided'
         form_values['sub6_nextGrade'] = 'Incomplete information provided'
         form_values['sub6_nextMarks'] = 'Incomplete information provided'
         
