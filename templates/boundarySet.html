@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Grade Boundaries Form</title>
     <style>
@@ -60,6 +61,8 @@
     <p class="error">{{message}}</p>
     <h1>{{subject_name}} Predicted Grade Boundaries</h1>
     <p>Please enter the minimum marks needed to achieve each grade in each subject. For example, if the minimum mark needed for a grade 7 in a subject is 85, enter 85 in the input field below 'Grade 7'. Follow the same process for the other grades also. If you wish to use 2019 grade boundaries, leave the input fields blank. Note that there is no field for a grade of 1, as the minimum marks required for a grade of 1 is 0 by default.</p>
+    <p>These are the current grade boundaries: {{current_boundaries}}</p>
+    
     <form method="post" action="/boundary_set">
       <fieldset>
         <legend>{{subject_name}}</legend>
