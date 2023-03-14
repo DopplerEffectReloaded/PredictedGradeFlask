@@ -101,7 +101,6 @@ def finish():
     
 @app.route('/back', methods = ['GET', 'POST'])
 def back():
-    print('readched')
     if request.method == 'POST':
         return render_template('adminHome.html')
 
