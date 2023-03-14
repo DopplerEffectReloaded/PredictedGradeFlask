@@ -1,4 +1,5 @@
 from secret import db
+import pandas, openpyxl
 cursor = db.cursor()
 
 PE1_WEIGHTAGE = 0.1

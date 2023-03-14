@@ -54,43 +54,64 @@ def input():
         else:
             # Check for student login
             if is_student(email, password):
-                return render_template('result.html', form = parse_db(email))
+                return render_template('result.html', form = parse_db(email), name = email)
             else:
                 return render_template('index.html', message = 'The username or password is incorrect')
         
 @app.route('/manage_grades', methods=['GET', 'POST'])
 def manage_grades():
-    return render_template('manageBoundary.html')
+    if request.method == 'POST':
+        return render_template('manageBoundary.html')
 
 @app.route('/view_grades', methods=['GET', 'POST'])
 def view_grades():
-    return render_template('gradeView.html')
+    if request.method == 'POST':
+        return render_template('gradeView.html')
 
 @app.route('/boundary_set', methods=['GET', 'POST'])
 def boundary_set():
-    subject = request.form['subject']
-    print(subject)
-    if not request.form['grade_2'] or not request.form['grade_3'] or not request.form['grade_4'] or not request.form['grade_5'] or not request.form['grade_6'] or not request.form['grade_7']:
-        boundary = globals().get(subject)
-        message = f'Boundary for {subName[subject[:-2]]} {subject[-2:]} updated to 2019 grade boundaries.'
+    if request.method == 'POST':
+        subject = request.form['subject']
+        if not request.form['grade_2'] or not request.form['grade_3'] or not request.form['grade_4'] or not request.form['grade_5'] or not request.form['grade_6'] or not request.form['grade_7']:
+            boundary = globals().get(subject)
+            message = f'Boundary for {subName[subject[:-2]]} {subject[-2:]} updated to 2019 grade boundaries.'
+            
+        else:
+            boundary = [int(request.form['grade_2']) - 1, int(request.form['grade_3']) - 1, int(request.form['grade_4']) - 1, int(request.form['grade_5']) - 1, int(request.form['grade_6']) - 1, int(request.form['grade_7']) - 1, 100]
+            for i in range(len(boundary) - 1):
+                if boundary[i] >= boundary[i+1]:
+                    return render_template('boundarySet.html', subject_name = f'{subName[subject[:-2]]} {subject[-2:]}', subject = subject, message = 'Invalid grade boundaries entered.')
+            message = f'Boundaries for {subName[subject[:-2]]} {subject[-2:]} updated'
         
-    else:
-        boundary = [int(request.form['grade_2']) - 1, int(request.form['grade_3']) - 1, int(request.form['grade_4']) - 1, int(request.form['grade_5']) - 1, int(request.form['grade_6']) - 1, int(request.form['grade_7']) - 1, 100]
-        for i in range(len(boundary) - 1):
-            if boundary[i] >= boundary[i+1]:
-                return render_template('boundarySet.html', subject_name = f'{subName[subject[:-2]]} {subject[-2:]}', subject = subject, message = 'Invalid grade boundaries entered.')
-        message = f'Boundaries for {subName[subject[:-2]]} {subject[-2:]} updated'
+        #  Save boundaries to mySQL table
+        set_boundary(subject, boundary)
+        return render_template('adminHome.html', message = message)
+
+@app.route('/upload_grades', methods = ['GET', 'POST'])
+def upload_grades():
+    if request.method == 'POST':
+        return render_template('upload_grades.html')
     
-    #  Save boundaries to mySQL table
-    set_boundary(subject, boundary)
-    return render_template('adminHome.html', message = message)
+@app.route('/upload_grades/finish', methods = ['GET', 'POST'])
+def finish():
+    if request.method == 'POST':
+        file = request.files['excel-file']
+        data = pandas.read_excel(file)
+        return data.to_html() # temporary
+    
+@app.route('/back', methods = ['GET', 'POST'])
+def back():
+    print('readched')
+    if request.method == 'POST':
+        return render_template('adminHome.html')
 
 @app.route('/subject', methods=['GET', 'POST'])
 def subject():
-    curr_subject = request.form['subject']
-    boundary = get_boundary(curr_subject)[:-1]
-    for i in range(len(boundary)): boundary[i] += 1
-    return render_template('boundarySet.html', subject_name = f'{subName[curr_subject[:-2]]} {curr_subject[-2:]}', subject = curr_subject, current_boundaries = boundary)
+    if request.method == 'POST':
+        curr_subject = request.form['subject']
+        boundary = get_boundary(curr_subject)[:-1]
+        for i in range(len(boundary)): boundary[i] += 1
+        return render_template('boundarySet.html', subject_name = f'{subName[curr_subject[:-2]]} {curr_subject[-2:]}', subject = curr_subject, current_boundaries = boundary)
 
 # @app.route('/result', methods=['GET', 'POST'])
 # def index():

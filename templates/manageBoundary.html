@@ -23,6 +23,18 @@
 		button:hover {
 			background-color: #3e8e41; /* Darker green */
 		}
+        .back-btn {
+			background-color: green;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+		}
 	</style>
 </head>
 <body>
@@ -62,6 +74,9 @@
         <button type="submit" name="subject" value="computer_scienceSL">Computer Science SL</button>
         <button type="submit" name="subject" value="essHL">Environmental systems and societies HL</button>
         <button type="submit" name="subject" value="essSL">Environmental systems and societies SL</button>
+	</form>
+    <form action="/back">
+		<button type="submit" class="back-btn">Back to Admin homepage</button>
 	</form>
 </body>
 </html>

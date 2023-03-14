@@ -54,6 +54,18 @@
         color: red;
         font-weight: bold;
       }
+      .back-btn {
+			  background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+		}
       
     </style>
   </head>
@@ -83,6 +95,9 @@
       </fieldset>
       <input type="hidden" id="subject" name="subject" value={{subject}}>
         <input type="submit" value="Submit">
+    </form>
+    <form action="/back">
+      <button type="submit" class="back-btn">Back to Admin homepage</button>
     </form>
   </body>
 </html>
