@@ -1,6 +1,6 @@
-from secret import db
+from secret import db_details
+import mysql.connector
 import pandas, openpyxl
-cursor = db.cursor()
 
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
@@ -137,8 +137,11 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
             future_marks = 'N/A, all exams have been taken'
 
 def is_admin(email, password):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
     cursor.execute(f'select password from admin where uid=\'{(str(email))}\'')
     table_password = cursor.fetchall()
+    cursor.close()
     db.close()
     if len(table_password) == 0:
         return 2
@@ -149,8 +152,11 @@ def is_admin(email, password):
         return 0
 
 def is_student(email, password):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
     cursor.execute(f'select password from student where uid=\'{(str(email))}\'')
     table_password = cursor.fetchall()
+    cursor.close()
     db.close()
     if len(table_password) == 0:
         return False
@@ -172,25 +178,34 @@ def str_to_list(string):
     return Array
 
 def set_boundary(subName, boundary_list):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
     boundary_string = list_to_str(boundary_list)
     subName = f'\'{subName}\''
     boundary_string = f'\'{boundary_string}\''
     cursor.execute(f'delete from boundaries where subName={subName}')
     cursor.execute(f'insert into boundaries (subName, boundary) values ({subName}, {boundary_string})')
     db.commit()
+    cursor.close()
     db.close()
 def get_boundary(subName):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
     subName = f'\'{subName}\''
     cursor.execute(f'select boundary from boundaries where subName={subName}')
     boundary_string = cursor.fetchall()[0][0]
+    cursor.close()
     db.close()
     boundary = str_to_list(boundary_string)
     return boundary
 
 def parse_db(uid):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
     uid = f'\'{uid}\''
     cursor.execute(f'select * from marks where uid = {uid}')
     db_data = cursor.fetchall()[0][1:]
+    cursor.close()
     db.close()
     
     temp_1 = Predictor(db_data[1], db_data[2], db_data[3], db_data[4], get_boundary(db_data[0]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
