@@ -7,38 +7,6 @@ app = Flask(__name__)
 @app.route('/', methods = ['GET', 'POST'])
 def home():
    return render_template('index.html')
-
-# @app.route('/newAccount', methods = ['GET', 'POST'])
-# def newAccount():
-#     return render_template('newAccount.html')
-
-# @app.route('/accountDone', methods = ['GET', 'POST'])
-# def accountDone():
-#     email = request.form['email']
-#     password = request.form['password']
-#     if (('=' in email) or ('=' in password)):
-#         return render_template('newAccount.html', message = "You cannot have '=' in your email id or password")
-
-#     if (request.form['password'] != request.form['password_confirm']):
-#         return render_template('newAccount.html', message = "The two passwords do not match")
-
-#     try:
-#         dummy = password_data[email]
-#         return render_template('newAccount.html', message = "This account already exists")
-        
-#     except:
-
-#         if (email[-12:] == 'chirec.ac.in'):
-
-#             with open('password.txt', 'a') as data:
-#                 data.write(f'\n{email}={password}')
-#             with open("password.txt") as data:
-#                 for line in data:
-#                     name, var = line.partition("=")[::2]
-#                     password_data[name.strip()] = var.strip()
-#             return render_template('accountDone.html')
-#         else:
-#             return render_template('newAccount.html', message = "Please use an official CHIREC email id to register")
     
 @app.route('/input', methods = ['GET', 'POST'])
 def input():

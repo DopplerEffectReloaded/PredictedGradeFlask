@@ -139,6 +139,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
 def is_admin(email, password):
     cursor.execute(f'select password from admin where uid=\'{(str(email))}\'')
     table_password = cursor.fetchall()
+    db.close()
     if len(table_password) == 0:
         return 2
     table_password = table_password[0][0]
@@ -150,6 +151,7 @@ def is_admin(email, password):
 def is_student(email, password):
     cursor.execute(f'select password from student where uid=\'{(str(email))}\'')
     table_password = cursor.fetchall()
+    db.close()
     if len(table_password) == 0:
         return False
     table_password = table_password[0][0]
@@ -176,10 +178,12 @@ def set_boundary(subName, boundary_list):
     cursor.execute(f'delete from boundaries where subName={subName}')
     cursor.execute(f'insert into boundaries (subName, boundary) values ({subName}, {boundary_string})')
     db.commit()
+    db.close()
 def get_boundary(subName):
     subName = f'\'{subName}\''
     cursor.execute(f'select boundary from boundaries where subName={subName}')
     boundary_string = cursor.fetchall()[0][0]
+    db.close()
     boundary = str_to_list(boundary_string)
     return boundary
 
@@ -187,6 +191,7 @@ def parse_db(uid):
     uid = f'\'{uid}\''
     cursor.execute(f'select * from marks where uid = {uid}')
     db_data = cursor.fetchall()[0][1:]
+    db.close()
     
     temp_1 = Predictor(db_data[1], db_data[2], db_data[3], db_data[4], get_boundary(db_data[0]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
     temp_2 = Predictor(db_data[6], db_data[7], db_data[8], db_data[9], get_boundary(db_data[5]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
