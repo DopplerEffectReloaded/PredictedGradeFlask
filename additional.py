@@ -266,3 +266,27 @@ def parse_db(uid):
                         }
     return form_values
 
+def get_grades(subject):
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
+    sqlsubject = f'\'{subject}\''
+    grades = []
+    cursor.execute(f'select uid, sub1_pe1, sub1_pe2, sub1_pe3, sub1_pey2 from marks where sub1 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.execute(f'select uid, sub2_pe1, sub2_pe2, sub2_pe3, sub2_pey2 from marks where sub2 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.execute(f'select uid, sub3_pe1, sub3_pe2, sub3_pe3, sub3_pey2 from marks where sub3 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.execute(f'select uid, sub4_pe1, sub4_pe2, sub4_pe3, sub4_pey2 from marks where sub4 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.execute(f'select uid, sub5_pe1, sub5_pe2, sub5_pe3, sub5_pey2 from marks where sub5 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.execute(f'select uid, sub6_pe1, sub6_pe2, sub6_pe3, sub6_pey2 from marks where sub6 = {sqlsubject}')
+    for i in cursor.fetchall(): grades.append(i)
+    cursor.close()
+    db.close()
+    for i in range(len(grades)):
+        grades[i] = list(grades[i])
+        grades[i].append(Predictor(grades[i][1], grades[i][2], grades[i][3], grades[i][4], get_boundary(subject), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)[0])
+    return grades
+

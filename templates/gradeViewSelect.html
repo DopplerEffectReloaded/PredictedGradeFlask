@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Subjects</title>
+	<style>
+		/* CSS for buttons */
+		button {
+			background-color: #4CAF50; /* Green background color */
+			border: none; /* Remove border */
+			color: white; /* White text color */
+			padding: 10px 20px; /* Padding */
+			text-align: center; /* Center text */
+			text-decoration: none; /* Remove underline */
+			display: inline-block; /* Display as inline-block */
+			font-size: 16px; /* Font size */
+			margin: 4px 2px; /* Margin */
+			cursor: pointer; /* Cursor on hover */
+			border-radius: 5px; /* Rounded corners */
+		}
+
+		/* CSS for button hover effect */
+		button:hover {
+			background-color: #3e8e41; /* Darker green */
+		}
+        .back-btn {
+			background-color: green;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+		}
+	</style>
+</head>
+<body>
+    <h1>Select the subject for which you would like to view grades</h1>
+	<!-- Button list -->
+	<form method="POST" action="/view_grade/subject">
+		<button type="submit" name="subject" value="englishHL">English HL</button>
+		<button type="submit" name="subject" value="englishSL">English SL</button>
+		<button type="submit" name="subject" value="spanishBSL">Spanish B SL</button>
+		<button type="submit" name="subject" value="frenchBSL">French B SL</button>
+		<button type="submit" name="subject" value="hindiBSL">Hindi B SL</button>
+        <button type="submit" name="subject" value="spanishABSL">Spanish AB SL</button>
+        <button type="submit" name="subject" value="frenchABSL">French AB SL</button>
+        <button type="submit" name="subject" value="math_aaHL">Math AA HL</button>
+        <button type="submit" name="subject" value="math_aiHL">Math AI HL</button>
+        <button type="submit" name="subject" value="math_aaSL">Math AA SL</button>
+        <button type="submit" name="subject" value="math_aiSL">Math AI SL</button>
+        <button type="submit" name="subject" value="physicsHL">Physics HL</button>
+        <button type="submit" name="subject" value="physicsSL">Physics SL</button>
+        <button type="submit" name="subject" value="chemistryHL">Chemistry HL</button>
+        <button type="submit" name="subject" value="chemistrySL">Chemistry SL</button>
+        <button type="submit" name="subject" value="biologyHL">Biology HL</button>
+        <button type="submit" name="subject" value="biologySL">Biology SL</button>
+        <button type="submit" name="subject" value="psychologyHL">Psychology HL</button>
+        <button type="submit" name="subject" value="psychologySL">Psychology SL</button>
+        <button type="submit" name="subject" value="digital_societiesHL">Digital societies HL</button>
+        <button type="submit" name="subject" value="digital_societiesSL">Digital societies SL</button>
+        <button type="submit" name="subject" value="global_politicsHL">Global Politics HL</button>
+        <button type="submit" name="subject" value="global_politicsSL">Global Politics SL</button>
+        <button type="submit" name="subject" value="visual_artsHL">Visual Arts HL</button>
+        <button type="submit" name="subject" value="visual_artsSL">Visual Arts SL</button>
+        <button type="submit" name="subject" value="economicsHL">Economics HL</button>
+        <button type="submit" name="subject" value="economicsSL">Economics SL</button>
+        <button type="submit" name="subject" value="business_managementHL">Business Management HL</button>
+        <button type="submit" name="subject" value="business_managementSL">Business Management SL</button>
+        <button type="submit" name="subject" value="computer_scienceHL">Computer Science HL</button>
+        <button type="submit" name="subject" value="computer_scienceSL">Computer Science SL</button>
+        <button type="submit" name="subject" value="essHL">Environmental systems and societies HL</button>
+        <button type="submit" name="subject" value="essSL">Environmental systems and societies SL</button>
+	</form>
+    <form method="POST" action="/back">
+		<button type="submit" class="back-btn">Back to Admin homepage</button>
+	</form>
+</body>
+</html>

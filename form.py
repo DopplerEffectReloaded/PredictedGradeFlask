@@ -34,7 +34,13 @@ def manage_grades():
 @app.route('/view_grades', methods=['GET', 'POST'])
 def view_grades():
     if request.method == 'POST':
-        return render_template('gradeView.html')
+        return render_template('gradeViewSelect.html')
+    
+@app.route('/view_grade/subject', methods=['GET', 'POST'])
+def view_grades_subject():
+    if request.method == 'POST':
+        subject = request.form['subject']
+        return render_template('gradeView.html', subject = f'{subName[subject[:-2]]} {subject[-2:]}', data = get_grades(subject))
 
 @app.route('/boundary_set', methods=['GET', 'POST'])
 def boundary_set():

@@ -20,43 +20,20 @@
     </style>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Student Grades</title>
+	<title>Student Grades for {{subject}}</title>
+	<h1>Student Grades for {{subject}}</h1>
 </head>
 <body>
 	<table style="width:100%">
 		<thead>
 			<tr>
 				<th>UID</th>
-				<th>Subject 1</th>
-				<th>Subject 1 PE1</th>
-                <th>Subject 1 PE2</th>
-                <th>Subject 1 PE3</th>
-                <th>Subject 1 PEY2</th>
-                <th>Subject 2</th>
-				<th>Subject 2 PE1</th>
-                <th>Subject 2 PE2</th>
-                <th>Subject 2 PE3</th>
-                <th>Subject 2 PEY2</th>
-                <th>Subject 3</th>
-				<th>Subject 3 PE1</th>
-                <th>Subject 3 PE2</th>
-                <th>Subject 3 PE3</th>
-                <th>Subject 3 PEY2</th>
-                <th>Subject 4</th>
-				<th>Subject 4 PE1</th>
-                <th>Subject 4 PE2</th>
-                <th>Subject 4 PE3</th>
-                <th>Subject 4 PEY2</th>
-                <th>Subject 5</th>
-				<th>Subject 5 PE1</th>
-                <th>Subject 5 PE2</th>
-                <th>Subject 5 PE3</th>
-                <th>Subject 5 PEY2</th>
-                <th>Subject 6</th>
-				<th>Subject 6 PE1</th>
-                <th>Subject 6 PE2</th>
-                <th>Subject 6 PE3</th>
-                <th>Subject 6 PEY2</th>
+				<!-- <th>Name</th> -->
+				<th>PE1</th>
+                <th>PE2</th>
+                <th>PE3</th>
+                <th>PEY2</th>
+				<th>Current grade</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -65,6 +42,10 @@
 					<td>{{ row[0] }}</td>
 					<td>{{ row[1] }}</td>
 					<td>{{ row[2] }}</td>
+					<td>{{ row[3] }}</td>
+					<td>{{ row[4] }}</td>
+					<td>{{ row[5] }}</td>
+					<!-- <td>{{ row[6] }}</td> -->
 				</tr>
 			{% endfor %}
 		</tbody>
