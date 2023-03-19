@@ -139,7 +139,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
 def is_admin(email, password):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
-    cursor.execute(f'select password from admin where uid=\'{(str(email))}\'')
+    cursor.execute(f'select password from admin where uid=%s', [email])
     table_password = cursor.fetchall()
     cursor.close()
     db.close()
@@ -154,7 +154,7 @@ def is_admin(email, password):
 def is_student(email, password):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
-    cursor.execute(f'select password from student where uid=\'{(str(email))}\'')
+    cursor.execute(f'select password from student where uid=%s', [email])
     table_password = cursor.fetchall()
     cursor.close()
     db.close()
@@ -181,18 +181,15 @@ def set_boundary(subName, boundary_list):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
     boundary_string = list_to_str(boundary_list)
-    subName = f'\'{subName}\''
-    boundary_string = f'\'{boundary_string}\''
-    cursor.execute(f'delete from boundaries where subName={subName}')
-    cursor.execute(f'insert into boundaries (subName, boundary) values ({subName}, {boundary_string})')
+    cursor.execute(f'delete from boundaries where subName=%s', [subName])
+    cursor.execute(f'insert into boundaries (subName, boundary) values (%s, %s)', [subName, boundary_string])
     db.commit()
     cursor.close()
     db.close()
 def get_boundary(subName):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
-    subName = f'\'{subName}\''
-    cursor.execute(f'select boundary from boundaries where subName={subName}')
+    cursor.execute(f'select boundary from boundaries where subName=%s', [subName])
     boundary_string = cursor.fetchall()[0][0]
     cursor.close()
     db.close()
@@ -202,8 +199,7 @@ def get_boundary(subName):
 def parse_db(uid):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
-    uid = f'\'{uid}\''
-    cursor.execute(f'select * from marks where uid = {uid}')
+    cursor.execute(f'select * from marks where uid =%s', [uid])
     db_data = cursor.fetchall()[0][1:]
     cursor.close()
     db.close()
@@ -269,19 +265,18 @@ def parse_db(uid):
 def get_grades(subject):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
-    sqlsubject = f'\'{subject}\''
     grades = []
-    cursor.execute(f'select uid, sub1_pe1, sub1_pe2, sub1_pe3, sub1_pey2 from marks where sub1 = {sqlsubject}')
+    cursor.execute(f'select uid, sub1_pe1, sub1_pe2, sub1_pe3, sub1_pey2 from marks where sub1 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
-    cursor.execute(f'select uid, sub2_pe1, sub2_pe2, sub2_pe3, sub2_pey2 from marks where sub2 = {sqlsubject}')
+    cursor.execute(f'select uid, sub2_pe1, sub2_pe2, sub2_pe3, sub2_pey2 from marks where sub2 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
-    cursor.execute(f'select uid, sub3_pe1, sub3_pe2, sub3_pe3, sub3_pey2 from marks where sub3 = {sqlsubject}')
+    cursor.execute(f'select uid, sub3_pe1, sub3_pe2, sub3_pe3, sub3_pey2 from marks where sub3 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
-    cursor.execute(f'select uid, sub4_pe1, sub4_pe2, sub4_pe3, sub4_pey2 from marks where sub4 = {sqlsubject}')
+    cursor.execute(f'select uid, sub4_pe1, sub4_pe2, sub4_pe3, sub4_pey2 from marks where sub4 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
-    cursor.execute(f'select uid, sub5_pe1, sub5_pe2, sub5_pe3, sub5_pey2 from marks where sub5 = {sqlsubject}')
+    cursor.execute(f'select uid, sub5_pe1, sub5_pe2, sub5_pe3, sub5_pey2 from marks where sub5 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
-    cursor.execute(f'select uid, sub6_pe1, sub6_pe2, sub6_pe3, sub6_pey2 from marks where sub6 = {sqlsubject}')
+    cursor.execute(f'select uid, sub6_pe1, sub6_pe2, sub6_pe3, sub6_pey2 from marks where sub6 = %s', [subject])
     for i in cursor.fetchall(): grades.append(i)
     cursor.close()
     db.close()
