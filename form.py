@@ -70,8 +70,9 @@ def upload_grades():
 def finish():
     if request.method == 'POST':
         file = request.files['excel-file']
-        data = pandas.read_excel(file)
-        return data.to_html() # temporary
+        df = pd.read_excel(file)
+        df.reset_index(drop= True, inplace= True)
+        return df.to_html() # temporary
     
 @app.route('/back', methods = ['GET', 'POST'])
 def back():

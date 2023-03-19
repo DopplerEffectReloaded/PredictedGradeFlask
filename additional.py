@@ -1,6 +1,6 @@
 from secret import db_details
 import mysql.connector
-import pandas, openpyxl
+import pandas as pd
 
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
