@@ -55,7 +55,9 @@
     <body>
         <h1>Upload grades through Excel file</h1>
 		<p>KEY NOTE: When a new excel file is uploaded, all previously stored marks will be lost and overwritten with the data from the uploaded excel sheet.</p>
-        <form method="POST" enctype="multipart/form-data" action="/upload_grades/finish">
+        <p>Format to be followed in excel: </p>
+		<a href="https://docs.google.com/spreadsheets/d/1LgTwgkWzP1MCTV_vAotYm85Q3F-JaaM7/edit?usp=sharing&ouid=110242570571343443979&rtpof=true&sd=true">here</a>
+		<form method="POST" enctype="multipart/form-data" action="/upload_grades/finish">
             <label for="excel-file">Select Excel file to upload:</label>
             <input type="file" id="excel-file" name="excel-file"
             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
