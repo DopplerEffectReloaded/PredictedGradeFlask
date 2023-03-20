@@ -71,8 +71,11 @@ def finish():
     if request.method == 'POST':
         file = request.files['excel-file']
         df = pd.read_excel(file)
-        df.reset_index(drop= True, inplace= True)
-        return df.to_html() # temporary
+        try:
+            marks_assigner(df)
+            return render_template('adminHome.html', message = 'Grades entered successfully')
+        except:
+            return render_template('adminHome.html', message = 'There was an error. Please check the format and contents of your excel file again.')
     
 @app.route('/back', methods = ['GET', 'POST'])
 def back():
