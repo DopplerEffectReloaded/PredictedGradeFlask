@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+import openpyxl
 from additional import *
 
 
@@ -70,9 +71,12 @@ def upload_grades():
 def finish():
     if request.method == 'POST':
         file = request.files['excel-file']
-        df = pd.read_excel(file)
+        xls = openpyxl.load_workbook(file)
+        data = xls.active
+        
+        # df = pd.read_excel(file)
         try:
-            marks_assigner(df)
+            student_grade(data)
             return render_template('adminHome.html', message = 'Grades entered successfully')
         except:
             return render_template('adminHome.html', message = 'There was an error. Please check the format and contents of your excel file again.')

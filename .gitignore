@@ -5,6 +5,7 @@
 
 secret.py
 test.py
+test.xlsx
 # User-specific files
 *.rsuser
 *.suo

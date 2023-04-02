@@ -1,6 +1,5 @@
 from secret import db_details
 import mysql.connector
-import pandas as pd
 
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
@@ -133,8 +132,9 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j) + (weightagePE1Y2*j):
                 current_grade += 1
-            future_grade = 'N/A, all exams have been taken'
-            future_marks = 'N/A, all exams have been taken'
+        future_grade = 'N/A, all exams have been taken'
+        future_marks = 'N/A, all exams have been taken'
+        return ([current_grade, future_grade, future_marks])
 
 def is_admin(email, password):
     db = mysql.connector.connect(**db_details)
@@ -186,6 +186,7 @@ def set_boundary(subName, boundary_list):
     db.commit()
     cursor.close()
     db.close()
+
 def get_boundary(subName):
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
@@ -285,103 +286,132 @@ def get_grades(subject):
         grades[i].append(Predictor(grades[i][1], grades[i][2], grades[i][3], grades[i][4], get_boundary(subject), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)[0])
     return grades
 
-# Excel parsing
-primary_key = "Student Name"
-def student_df(df_main, pk):
-    df_individual_student = pd.DataFrame()
-    for index, row in df_main.iterrows():
-        if not pd.isnull(df_main.loc[index, pk]):
-                df_individual_student = pd.concat([df_individual_student, row.to_frame().T])
-                df_main.drop(index, inplace = True) 
-                break
+# # Excel parsing
+# primary_key = "Student Name"
+# def student_df(df_main, pk):
+#     df_individual_student = pd.DataFrame()
+#     for index, row in df_main.iterrows():
+#         if not pd.isnull(df_main.loc[index, pk]):
+#                 df_individual_student = pd.concat([df_individual_student, row.to_frame().T])
+#                 df_main.drop(index, inplace = True) 
+#                 break
     
-    for index, row in df_main.iterrows():
-         if pd.isnull(df_main.loc[index, pk]):
-              df_individual_student = pd.concat([df_individual_student, row.to_frame().T])
-              df_main.drop(index, inplace = True)
-              temp = index + 2
-              try:
-                if not pd.isnull(df_main.loc[temp, pk]):
-                    break
-              except:
-                  break
-    df_main.reset_index(inplace = True, drop = True)
-    df_individual_student.reset_index(inplace = True, drop = True)
-    return df_individual_student, df_main
+#     for index, row in df_main.iterrows():
+#          if pd.isnull(df_main.loc[index, pk]):
+#               df_individual_student = pd.concat([df_individual_student, row.to_frame().T])
+#               df_main.drop(index, inplace = True)
+#               temp = index + 2
+#               try:
+#                 if not pd.isnull(df_main.loc[temp, pk]):
+#                     break
+#               except:
+#                   break
+#     df_main.reset_index(inplace = True, drop = True)
+#     df_individual_student.reset_index(inplace = True, drop = True)
+#     return df_individual_student, df_main
 
-def column_formatter(df_individual_student):
-    """
-    This function is only to be applied once when df is already created
-    """
-    col_main = df_individual_student.columns
-    col_constant = []
-    for col in col_main:
-        col_constant.append(col)
-    columns = df_individual_student.iloc[1, [4, 5, 6, 7, 8, 9]]
-    col_sub_list = columns.tolist()
-    col_list = []
-    for i in range(len(col_constant)-6):
-        col_list.append(col_constant[i])
-    for i in range(len(col_sub_list)):
-        col_list.append(col_sub_list[i])
-    df_individual_student.columns = col_list
-    df_individual_student.drop(1, inplace = True)
-    return df_individual_student
+# def column_formatter(df_individual_student):
+#     """
+#     This function is only to be applied once when df is already created
+#     """
+#     col_main = df_individual_student.columns
+#     col_constant = []
+#     for col in col_main:
+#         col_constant.append(col)
+#     columns = df_individual_student.iloc[1, [4, 5, 6, 7, 8, 9]]
+#     col_sub_list = columns.tolist()
+#     col_list = []
+#     for i in range(len(col_constant)-6):
+#         col_list.append(col_constant[i])
+#     for i in range(len(col_sub_list)):
+#         col_list.append(col_sub_list[i])
+#     df_individual_student.columns = col_list
+#     df_individual_student.drop(1, inplace = True)
+#     return df_individual_student
 
-def subjects_obtainer(df_individual_student):
-    """This function associates the name with the subjects and assigns grade boundaries accordingly for one students'
-     Returns all subjects of student within a list. The df_student will be taken from the previous one(under dev). THe sublost is taken for the given subjects in the database
-       """
-    sublist = []
-    df_new = df_individual_student.drop(df_individual_student.columns[[0, 1 , 2, 3]], axis = 1)
-    df_new.reset_index(drop = True, inplace = True)
-    for col in df_new.columns:
-        sublist.append(col)
-    return sublist
+# def subjects_obtainer(df_individual_student):
+#     """This function associates the name with the subjects and assigns grade boundaries accordingly for one students'
+#      Returns all subjects of student within a list. The df_student will be taken from the previous one(under dev). THe sublost is taken for the given subjects in the database
+#        """
+#     sublist = []
+#     df_new = df_individual_student.drop(df_individual_student.columns[[0, 1 , 2, 3]], axis = 1)
+#     df_new.reset_index(drop = True, inplace = True)
+#     for col in df_new.columns:
+#         sublist.append(col)
+#     return sublist
 
-def marks_obtainer(df_student, subnames):
+# def marks_obtainer(df_student, subnames):
 
-    df_new = df_student.drop(df_student.columns[[0, 1, 2, 3]], axis = 1)
-    df_new.reset_index(inplace = True ,drop = True)
-    allsubmkslist = []
-    subandmkslist = []
-    df_new = df_new.fillna('NULL')
-    for i in range(len(subnames)):
-        submks = df_new.iloc[[0, 1, 2, 6],[i]].squeeze('columns').tolist()
-        allsubmkslist.append(submks)
-    for i in range(len(subnames)):
-        subandmkslist.append(subnames[i])
-        subandmkslist.append(allsubmkslist[i])
-    return subandmkslist
+#     df_new = df_student.drop(df_student.columns[[0, 1, 2, 3]], axis = 1)
+#     df_new.reset_index(inplace = True ,drop = True)
+#     allsubmkslist = []
+#     subandmkslist = []
+#     df_new = df_new.fillna('NULL')
+#     for i in range(len(subnames)):
+#         submks = df_new.iloc[[0, 1, 2, 6],[i]].squeeze('columns').tolist()
+#         allsubmkslist.append(submks)
+#     for i in range(len(subnames)):
+#         subandmkslist.append(subnames[i])
+#         subandmkslist.append(allsubmkslist[i])
+#     return subandmkslist
 
-def parse_excel(df):
-    df.reset_index(drop= True, inplace= True)
-    all_students_information = []
-    student_names = []
-    for index, row in df.iterrows():
-        if not pd.isnull(df.loc[index,"Student Name"]):
-            student_names.append(row["Student Name"])  
-        else:
-            continue
-    df_student_first , df = student_df(df, primary_key)
-    student_dataframes = []
-    student_dataframes.append(df_student_first)
-    for i in range(len(student_names)-1):
-        df_student, df = student_df(df, primary_key)
-        df_student = column_formatter(df_student)
-        student_dataframes.append(df_student)
-    all_sub_and_mks_list = []
-    for i in range(len(student_dataframes)):
-        sublist = subjects_obtainer(student_dataframes[i])
-        subjectandmkslist = marks_obtainer(student_dataframes[i], sublist)
-        all_sub_and_mks_list.append(subjectandmkslist)
-    for i in range(len(student_names)):
-        all_students_information.append(student_names[i])
-        all_students_information.append(all_sub_and_mks_list[i])
-    return student_names, all_sub_and_mks_list
+# def parse_excel(df):
+#     df.reset_index(drop= True, inplace= True)
+#     all_students_information = []
+#     student_names = []
+#     for index, row in df.iterrows():
+#         if not pd.isnull(df.loc[index,"Student Name"]):
+#             student_names.append(row["Student Name"])  
+#         else:
+#             continue
+#     df_student_first , df = student_df(df, primary_key)
+#     student_dataframes = []
+#     student_dataframes.append(df_student_first)
+#     for i in range(len(student_names)-1):
+#         df_student, df = student_df(df, primary_key)
+#         df_student = column_formatter(df_student)
+#         student_dataframes.append(df_student)
+#     all_sub_and_mks_list = []
+#     for i in range(len(student_dataframes)):
+#         sublist = subjects_obtainer(student_dataframes[i])
+#         subjectandmkslist = marks_obtainer(student_dataframes[i], sublist)
+#         all_sub_and_mks_list.append(subjectandmkslist)
+#     for i in range(len(student_names)):
+#         all_students_information.append(student_names[i])
+#         all_students_information.append(all_sub_and_mks_list[i])
+#     return student_names, all_sub_and_mks_list
+
+# def marks_assigner(df):
+#     """This function takes the values obtained in the excel parser file and passes them to the marks database.
+#     """
+#     db = mysql.connector.connect(**db_details)
+#     cursor = db.cursor()
+#     cursor.execute('delete from marks')
+#     db.commit()
+#     students, sub_and_mks = parse_excel(df)
+#     print(students[2])
+#     parameters = []
+#     for i in range(len(students)):
+#         parameters.append((students[i], 
+#                         subNameExcel[sub_and_mks[i][0][:-3]] + sub_and_mks[i][0][-2:], sub_and_mks[i][1][0], sub_and_mks[i][1][1], sub_and_mks[i][1][2], sub_and_mks[i][1][3], 
+#                         subNameExcel[sub_and_mks[i][2][:-3]] + sub_and_mks[i][2][-2:], sub_and_mks[i][3][0], sub_and_mks[i][3][1], sub_and_mks[i][3][2], sub_and_mks[i][3][3], 
+#                         subNameExcel[sub_and_mks[i][4][:-3]] + sub_and_mks[i][4][-2:], sub_and_mks[i][5][0], sub_and_mks[i][5][1], sub_and_mks[i][5][2], sub_and_mks[i][5][3], 
+#                         subNameExcel[sub_and_mks[i][6][:-3]] + sub_and_mks[i][6][-2:], sub_and_mks[i][7][0], sub_and_mks[i][7][1], sub_and_mks[i][7][2], sub_and_mks[i][7][3], 
+#                         subNameExcel[sub_and_mks[i][8][:-3]] + sub_and_mks[i][8][-2:], sub_and_mks[i][9][0], sub_and_mks[i][9][1], sub_and_mks[i][9][2], sub_and_mks[i][9][3], 
+#                         subNameExcel[sub_and_mks[i][10][:-3]] + sub_and_mks[i][10][-2:], sub_and_mks[i][11][0], sub_and_mks[i][11][1], sub_and_mks[i][11][2], sub_and_mks[i][11][3], 
+#                         ))
+#     print(parameters)
+
+#     for i in range(len(students)):
+#         query = "insert into marks (uid, sub1, sub1_pe1, sub1_pe2, sub1_pe3, sub1_pey2, sub2, sub2_pe1, sub2_pe2, sub2_pe3, sub2_pey2, sub3, sub3_pe1, sub3_pe2, sub3_pe3, sub3_pey2, sub4, sub4_pe1, sub4_pe2, sub4_pe3, sub4_pey2, sub5, sub5_pe1, sub5_pe2, sub5_pe3, sub5_pey2, sub6, sub6_pe1, sub6_pe2, sub6_pe3, sub6_pey2) values ('%s', '%s', %s, %s, %s, %s,'%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s)"
+#         cursor.execute(query % parameters[i])
+
+#     db.commit()
+#     cursor.close()
+#     db.close()
 
 subNameExcel = {
-    'English L&L': 'english',
+    'English': 'english',
     'Spanish B': 'spanishB',
     'French B': 'frenchB',
     'Hindi B': 'hindiB',
@@ -402,31 +432,83 @@ subNameExcel = {
     'ESS': 'ess'
 }
 
-def marks_assigner(df):
-    """This function takes the values obtained in the excel parser file and passes them to the marks database.
-    """
+def get_grade(min_row, data):
+    arr = [[] for _ in range(6)]
+    if min_row == 0:
+        arr.append(data.cell(2, 2).value)
+        for i in range(6):
+            arr[i].append(data.cell(2, i+3).value)
+    else:
+        arr.append(data.cell(min_row, 2).value)
+        for i in range(6):
+            arr[i].append(data.cell(min_row, i+3).value)
+
+    check = ['Progression 1 Marks out of 100', 'Progression 2 Marks Out of 100', 'Progression 3 Marks out of 10', 'Progression 1 of year 2 out of 100']
+    
+    index = 0
+    for i in data.iter_rows(min_row, data.max_row):
+        if i[1].value in check:
+            for subj in range(2, 8):
+                arr[subj-2].append(i[subj].value)    
+            index += 1
+
+        if i[1].value is None:
+            break
+        
+    return arr
+
+def student_grade(data):
+    full_arr = []
+    full_arr.append(get_grade(0, data))
+
+    flag = 0
+    min_row = 1
+    
+    for i in data.iter_rows(0, data.max_row):
+        min_row +=1 
+
+        if i[1].value is None:
+            flag += 1
+            full_arr.append(get_grade(min_row, data))
+        else:
+            flag = 0
+
+        if flag == 2:
+            break
+    
+    empty_row = [[None], [None], [None], [None], [None], [None], None]
+    while True:
+        if empty_row in full_arr:
+            full_arr.remove(empty_row)
+        else:
+            break
+
+    parameters= []
+    for i in full_arr:
+        parameters.append((i[-1], 
+                           subNameExcel[i[0][0]]+'HL', i[0][1], i[0][2], i[0][3], i[0][4],
+                           subNameExcel[i[1][0]]+'HL', i[1][1], i[1][2], i[1][3], i[1][4],
+                           subNameExcel[i[2][0]]+'HL', i[2][1], i[2][2], i[2][3], i[2][4],
+                           subNameExcel[i[3][0]]+'SL', i[3][1], i[3][2], i[3][3], i[3][4],
+                           subNameExcel[i[4][0]]+'SL', i[4][1], i[4][2], i[4][3], i[4][4],
+                           subNameExcel[i[5][0]]+'SL', i[5][1], i[5][2], i[5][3], i[5][4],
+                           ))
+        
     db = mysql.connector.connect(**db_details)
     cursor = db.cursor()
     cursor.execute('delete from marks')
     db.commit()
-    students, sub_and_mks = parse_excel(df)
-    print(students[2])
-    parameters = []
-    for i in range(len(students)):
-        parameters.append((students[i], 
-                        subNameExcel[sub_and_mks[i][0][:-3]] + sub_and_mks[i][0][-2:], sub_and_mks[i][1][0], sub_and_mks[i][1][1], sub_and_mks[i][1][2], sub_and_mks[i][1][3], 
-                        subNameExcel[sub_and_mks[i][2][:-3]] + sub_and_mks[i][2][-2:], sub_and_mks[i][3][0], sub_and_mks[i][3][1], sub_and_mks[i][3][2], sub_and_mks[i][3][3], 
-                        subNameExcel[sub_and_mks[i][4][:-3]] + sub_and_mks[i][4][-2:], sub_and_mks[i][5][0], sub_and_mks[i][5][1], sub_and_mks[i][5][2], sub_and_mks[i][5][3], 
-                        subNameExcel[sub_and_mks[i][6][:-3]] + sub_and_mks[i][6][-2:], sub_and_mks[i][7][0], sub_and_mks[i][7][1], sub_and_mks[i][7][2], sub_and_mks[i][7][3], 
-                        subNameExcel[sub_and_mks[i][8][:-3]] + sub_and_mks[i][8][-2:], sub_and_mks[i][9][0], sub_and_mks[i][9][1], sub_and_mks[i][9][2], sub_and_mks[i][9][3], 
-                        subNameExcel[sub_and_mks[i][10][:-3]] + sub_and_mks[i][10][-2:], sub_and_mks[i][11][0], sub_and_mks[i][11][1], sub_and_mks[i][11][2], sub_and_mks[i][11][3], 
-                        ))
-    print(parameters)
-
-    for i in range(len(students)):
+    for i in parameters:
         query = "insert into marks (uid, sub1, sub1_pe1, sub1_pe2, sub1_pe3, sub1_pey2, sub2, sub2_pe1, sub2_pe2, sub2_pe3, sub2_pey2, sub3, sub3_pe1, sub3_pe2, sub3_pe3, sub3_pey2, sub4, sub4_pe1, sub4_pe2, sub4_pe3, sub4_pey2, sub5, sub5_pe1, sub5_pe2, sub5_pe3, sub5_pey2, sub6, sub6_pe1, sub6_pe2, sub6_pe3, sub6_pey2) values ('%s', '%s', %s, %s, %s, %s,'%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s, '%s', %s, %s, %s, %s)"
-        cursor.execute(query % parameters[i])
-
+        cursor.execute(query % i)
+    
     db.commit()
     cursor.close()
     db.close()
+
+        
+        
+        
+        
+        
+        
