@@ -383,7 +383,4 @@ def student_grade(data):
     cursor.close()
     db.close()
 
-excel = openpyxl.load_workbook('sample input.xlsx')
-data = excel.active
-student_grade(data)
         
