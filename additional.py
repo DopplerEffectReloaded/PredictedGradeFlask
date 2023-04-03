@@ -365,7 +365,7 @@ def student_grade(data):
     parameters= []
     for i in full_arr:
 
-        parameters.append((i[-1].strip().lower() if i[-1].strip() else 'NULL', 
+        parameters.append((i[-1].strip() if i[-1].strip() else 'NULL', 
                            subNameExcel[i[0][0].strip().lower()]+'HL', i[0][1] if i[0][1] is not None else 'NULL', i[0][2] if i[0][2] is not None else 'NULL', i[0][3] if i[0][3] is not None else 'NULL', i[0][4] if i[0][4] is not None else 'NULL',
                            subNameExcel[i[1][0].strip().lower()]+'HL', i[1][1] if i[1][1] is not None else 'NULL', i[1][2] if i[1][2] is not None else 'NULL', i[1][3] if i[1][3] is not None else 'NULL', i[1][4] if i[1][4] is not None else 'NULL',
                            subNameExcel[i[2][0].strip().lower()]+'HL', i[2][1] if i[2][1] is not None else 'NULL', i[2][2] if i[2][2] is not None else 'NULL', i[2][3] if i[2][3] is not None else 'NULL', i[2][4] if i[2][4] is not None else 'NULL',
