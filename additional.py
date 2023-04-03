@@ -288,27 +288,27 @@ def get_grades(subject):
     return grades
 
 subNameExcel = {
-    'English': 'english',
-    'Spanish B': 'spanishB',
-    'French B': 'frenchB',
-    'Hindi B': 'hindiB',
-    'Spanish AB': 'spanishAB',
-    'French AB': 'frenchAB',
-    'Math AA': 'math_aa',
-    'Math AI': 'math_ai',
-    'Physics': 'physics',
-    'Chemistry': 'chemistry',
-    'Biology': 'biology',
-    'Psychology': 'psychology',
-    'Digital Societies': 'digital_societies',
-    'Global Politics': 'global_politics',
-    'Visual Arts': 'visual_arts',
-    'Economics': 'economics',
-    'Business Management': 'business_management',
-    'BM': 'business_management',
-    'Computer Science': 'computer_science',
-    'CS': 'computer_science',
-    'ESS': 'ess'
+    'english': 'english',
+    'spanish b': 'spanishB',
+    'french b': 'frenchB',
+    'hindi b': 'hindiB',
+    'spanish ab': 'spanishAB',
+    'french ab': 'frenchAB',
+    'math aa': 'math_aa',
+    'math ai': 'math_ai',
+    'physics': 'physics',
+    'chemistry': 'chemistry',
+    'biology': 'biology',
+    'psychology': 'psychology',
+    'digital societies': 'digital_societies',
+    'global politics': 'global_politics',
+    'visual arts': 'visual_arts',
+    'economics': 'economics',
+    'business management': 'business_management',
+    'bm': 'business_management',
+    'computer science': 'computer_science',
+    'cs': 'computer_science',
+    'ess': 'ess'
 }
 
 def get_grade(min_row, data):
@@ -364,14 +364,14 @@ def student_grade(data):
 
     parameters= []
     for i in full_arr:
-       
-        parameters.append((i[-1].strip() if i[-1].strip() else 'NULL', 
-                           subNameExcel[i[0][0].strip()]+'HL', i[0][1] if i[0][1] is not None else 'NULL', i[0][2] if i[0][2] is not None else 'NULL', i[0][3] if i[0][3] is not None else 'NULL', i[0][4] if i[0][4] is not None else 'NULL',
-                           subNameExcel[i[1][0].strip()]+'HL', i[1][1] if i[1][1] is not None else 'NULL', i[1][2] if i[1][2] is not None else 'NULL', i[1][3] if i[1][3] is not None else 'NULL', i[1][4] if i[1][4] is not None else 'NULL',
-                           subNameExcel[i[2][0].strip()]+'HL', i[2][1] if i[2][1] is not None else 'NULL', i[2][2] if i[2][2] is not None else 'NULL', i[2][3] if i[2][3] is not None else 'NULL', i[2][4] if i[2][4] is not None else 'NULL',
-                           subNameExcel[i[3][0].strip()]+'SL', i[3][1] if i[3][1] is not None else 'NULL', i[3][2] if i[3][2] is not None else 'NULL', i[3][3] if i[3][3] is not None else 'NULL', i[3][4] if i[3][4] is not None else 'NULL',
-                           subNameExcel[i[4][0].strip()]+'SL', i[4][1] if i[4][1] is not None else 'NULL', i[4][2] if i[4][2] is not None else 'NULL', i[4][3] if i[4][3] is not None else 'NULL', i[4][4] if i[4][4] is not None else 'NULL',
-                           subNameExcel[i[5][0].strip()]+'SL', i[5][1] if i[5][1] is not None else 'NULL', i[5][2] if i[5][2] is not None else 'NULL', i[5][3] if i[5][3] is not None else 'NULL', i[5][4] if i[5][4] is not None else 'NULL',
+
+        parameters.append((i[-1].strip().lower() if i[-1].strip() else 'NULL', 
+                           subNameExcel[i[0][0].strip().lower()]+'HL', i[0][1] if i[0][1] is not None else 'NULL', i[0][2] if i[0][2] is not None else 'NULL', i[0][3] if i[0][3] is not None else 'NULL', i[0][4] if i[0][4] is not None else 'NULL',
+                           subNameExcel[i[1][0].strip().lower()]+'HL', i[1][1] if i[1][1] is not None else 'NULL', i[1][2] if i[1][2] is not None else 'NULL', i[1][3] if i[1][3] is not None else 'NULL', i[1][4] if i[1][4] is not None else 'NULL',
+                           subNameExcel[i[2][0].strip().lower()]+'HL', i[2][1] if i[2][1] is not None else 'NULL', i[2][2] if i[2][2] is not None else 'NULL', i[2][3] if i[2][3] is not None else 'NULL', i[2][4] if i[2][4] is not None else 'NULL',
+                           subNameExcel[i[3][0].strip().lower()]+'SL', i[3][1] if i[3][1] is not None else 'NULL', i[3][2] if i[3][2] is not None else 'NULL', i[3][3] if i[3][3] is not None else 'NULL', i[3][4] if i[3][4] is not None else 'NULL',
+                           subNameExcel[i[4][0].strip().lower()]+'SL', i[4][1] if i[4][1] is not None else 'NULL', i[4][2] if i[4][2] is not None else 'NULL', i[4][3] if i[4][3] is not None else 'NULL', i[4][4] if i[4][4] is not None else 'NULL',
+                           subNameExcel[i[5][0].strip().lower()]+'SL', i[5][1] if i[5][1] is not None else 'NULL', i[5][2] if i[5][2] is not None else 'NULL', i[5][3] if i[5][3] is not None else 'NULL', i[5][4] if i[5][4] is not None else 'NULL',
                            ))
         
     db = mysql.connector.connect(**db_details)
