@@ -305,7 +305,9 @@ subNameExcel = {
     'Visual Arts': 'visual_arts',
     'Economics': 'economics',
     'Business Management': 'business_management',
+    'BM': 'business_management',
     'Computer Science': 'computer_science',
+    'CS': 'computer_science',
     'ESS': 'ess'
 }
 
@@ -362,6 +364,7 @@ def student_grade(data):
 
     parameters= []
     for i in full_arr:
+       
         parameters.append((i[-1].strip() if i[-1].strip() else 'NULL', 
                            subNameExcel[i[0][0].strip()]+'HL', i[0][1] if i[0][1] else 'NULL', i[0][2] if i[0][2] else 'NULL', i[0][3] if i[0][3] else 'NULL', i[0][4] if i[0][4] else 'NULL',
                            subNameExcel[i[1][0].strip()]+'HL', i[1][1] if i[1][1] else 'NULL', i[1][2] if i[1][2] else 'NULL', i[1][3] if i[1][3] else 'NULL', i[1][4] if i[1][4] else 'NULL',
@@ -382,5 +385,3 @@ def student_grade(data):
     db.commit()
     cursor.close()
     db.close()
-
-        
