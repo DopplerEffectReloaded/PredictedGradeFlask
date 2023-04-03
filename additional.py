@@ -320,7 +320,7 @@ def get_grade(min_row, data):
         for i in range(6):
             arr[i].append(data.cell(min_row, i+3).value)
 
-    check = ['Progression 1 Marks out of 100', 'Progression 2 Marks Out of 100', 'Progression 3 Marks out of 10', 'Progression 1 of year 2 out of 100']
+    check = ['Progression 1 Marks out of 100', 'Progression 2 Marks Out of 100', 'Progression 3 Marks out of 100', 'Progression 1 of year 2 out of 100']
     
     index = 0
     for i in data.iter_rows(min_row, data.max_row):
