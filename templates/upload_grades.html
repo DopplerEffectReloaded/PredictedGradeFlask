@@ -5,6 +5,7 @@
 	<title>Upload grades through Excel file</title>
 	<style>
 		/* CSS for buttons */
+		
 		button {
 			background-color: #4CAF50; /* Green background color */
 			border: none; /* Remove border */
@@ -18,14 +19,16 @@
 			cursor: pointer; /* Cursor on hover */
 			border-radius: 5px; /* Rounded corners */
 		}
+		
         /* CSS for button hover effect */
 	    button:hover {
 		    background-color: #3e8e41; /* Darker green */
 	    }
-
+		/**
 	    input[type="file"] {
 		    display: none;
 	    }
+		*/
         .file-upload {
             background-color: #4CAF50;
             color: white;
@@ -35,6 +38,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
+		
         .file-upload:hover {
             background-color: #3e8e41;
         }
@@ -50,6 +54,17 @@
 			bottom: 20px;
 			right: 20px;
 		}
+		
+		label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: 0.4rem 0;
+}
+
     </style>
     </head>
     <body>
@@ -58,11 +73,13 @@
         <p>Format to be followed in excel: </p>
 		<a href="https://docs.google.com/spreadsheets/d/1m2EfgVZ2H2dWpVK3VxBjuFdhMbh1DGIs/edit?usp=sharing&ouid=110242570571343443979&rtpof=true&sd=true">here</a>
 		<form method="POST" enctype="multipart/form-data" action="/upload_grades/finish">
+			<div>
             <label for="excel-file">Select Excel file to upload:</label>
             <input type="file" id="excel-file" name="excel-file"
-            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+			</div>
             <br>
-            <button type="button" class="file-upload" onclick="document.getElementById('excel-file').click()">Choose File</button>
+            <!--button type="button" class=".file-upload" onclick="document.getElementById('excel-file').click()">Choose File</button-->
             <br><br>
             <button type="submit">Upload Grades</button>
         </form>
