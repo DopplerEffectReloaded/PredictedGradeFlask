@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Choose Your Operation</title>
+    <style>
+        /* CSS for Buttons */
+        button {
+			background-color: #4CAF50; /* Green background color */
+			border: none; /* Remove border */
+			color: white; /* White text color */
+			padding: 10px 20px; /* Padding */
+			text-align: center; /* Center text */
+			text-decoration: none; /* Remove underline */
+			display: inline-block; /* Display as inline-block */
+			font-size: 16px; /* Font size */
+			margin: 4px 2px; /* Margin */
+			cursor: pointer; /* Cursor on hover */
+			border-radius: 5px; /* Rounded corners */
+		}
+
+		/* CSS for button hover effect */
+		button:hover {
+			background-color: #3e8e41; /* Darker green */
+		}
+        .back-btn {
+			background-color: green;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+		}
+	</style>
+</head>
+<body>
+    <h1>Select the operation you would like to perform</h1>
+    <!-- Button List-->
+    <form method = "POST" action = "/view_grade_subject">
+        <button type = "submit">View Subject Grades</button>
+    </form>
+    <form method = "POST" action = "/view_grades/all">
+        <button type = "submit"> View Student Predicted Grades </button>
+    </form>

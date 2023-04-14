@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        table, th, td {
+            border:1px solid black;
+        }
+        .back-btn {
+			background-color: green;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			cursor: pointer;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+		}
+
+    </style>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<img src="../static/logo.jpg" width="180" height="81">
+	<title>All Student Final Grades</title>
+	<h1>All Student Final Grades</h1>
+</head>
+<body>
+	<table style="width:100%">
+		<thead>
+			<tr>
+				<th>UID</th>
+				<!-- <th>Name</th> -->
+				<th>Final grade</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in data %}
+				<tr>
+					<td>{{ row[0] }}</td>
+					<td>{{ row[1] }}</td>
+					<!-- <td>{{ row[6] }}</td> -->
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    <form method="POST" action="/back">
+		<button type="submit" class="back-btn">Back to Admin homepage</button>
+	</form>
+</body>
+</html>

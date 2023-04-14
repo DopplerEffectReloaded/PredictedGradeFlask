@@ -1,6 +1,6 @@
 from secret import db_details
-import openpyxl
 import mysql.connector
+import openpyxl
 
 PE1_WEIGHTAGE = 0.1
 PE2_WEIGHTAGE = 0.1
@@ -63,7 +63,7 @@ subName = {
     'ess' : 'ESS'
 }
 
-def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
+def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
     '''This function takes your marks as input and then predicts 
     how many marks you need to obtain in your next exam to get the next grade according to the 
     IB grade boundaries for all the exams'''
@@ -76,7 +76,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         current_grade = 1           
         for i in range(0, 7):
             
-            d = sub_grade[i]
+            d = grade_boundary[i]
 
             if weightagePE1*PE1 >= weightagePE1*d:
                 current_grade += 1
@@ -85,7 +85,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         if (future_grade - 7) >= 1:
             future_grade = 7
 
-        boundary = sub_grade[future_grade-2]
+        boundary = grade_boundary[future_grade-2]
         future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
         return ([current_grade, future_grade, round(future_marks, 1)])
 
@@ -94,7 +94,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         current_grade = 1
         for i in range(0, 7):
 
-            f = sub_grade[i]
+            f = grade_boundary[i]
 
             if (weightagePE1*PE1 + weightagePE2*PE2) >= (weightagePE1*f) + (weightagePE2*f):
                 current_grade += 1
@@ -103,7 +103,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         if (future_grade - 7) >= 1:
             future_grade = 7
         
-        boundary = sub_grade[future_grade-2]
+        boundary = grade_boundary[future_grade-2]
         future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
         return ([current_grade, future_grade, round(future_marks, 1)])
     
@@ -112,7 +112,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         current_grade = 1
         for i in range(0, 7):
 
-            j = sub_grade[i]
+            j = grade_boundary[i]
 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j):
                 current_grade += 1
@@ -121,7 +121,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         if (future_grade - 7) >= 1:
             future_grade = 7
         
-        boundary = sub_grade[future_grade-2]
+        boundary = grade_boundary[future_grade-2]
         future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
         return ([current_grade, future_grade, round(future_marks, 1)])
     else:
@@ -129,7 +129,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, sub_grade, weightagePE1, weightagePE2, weigh
         current_grade = 1
         for i in range(0, 7):
 
-            j = sub_grade[i]
+            j = grade_boundary[i]
 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j) + (weightagePE1Y2*j):
                 current_grade += 1
@@ -287,6 +287,51 @@ def get_grades(subject):
         grades[i].append(Predictor(grades[i][1], grades[i][2], grades[i][3], grades[i][4], get_boundary(subject), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)[0])
     return grades
 
+def get_final_grades():
+    db = mysql.connector.connect(**db_details)
+    cursor = db.cursor()
+    cursor.execute(f'select *from marks')
+    db_data = []
+    for i in cursor.fetchall():
+        name_and_grades = []
+        grades = []
+        name_and_grades.append(i[0])
+        
+        temp1 = Predictor(i[2], i[3], i[4], i[5], get_boundary(i[1]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp2 = Predictor(i[7], i[8], i[9], i[10], get_boundary(i[6]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp3 = Predictor(i[12], i[13], i[14], i[15], get_boundary(i[11]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp4 = Predictor(i[17], i[18], i[19], i[20], get_boundary(i[16]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp5 = Predictor(i[22], i[23], i[24], i[25], get_boundary(i[21]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp6 = Predictor(i[27], i[28], i[29], i[30], get_boundary(i[26]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp1.pop()
+        temp1.pop()
+        temp2.pop()
+        temp2.pop()
+        temp3.pop()
+        temp3.pop()
+        temp4.pop()
+        temp4.pop()
+        temp5.pop()
+        temp5.pop()
+        temp6 = list(temp6)
+        temp6.pop()
+        temp6.pop()
+        grades.append(temp1[0])
+        grades.append(temp2[0])
+        grades.append(temp3[0])
+        grades.append(temp4[0])
+        grades.append(temp5[0])
+        grades.append(temp6[0])
+        try:
+            predictedgrade = grades[0] + grades[1] + grades[2] + grades[3] + grades[4] + grades[5]
+            name_and_grades.append(predictedgrade)
+            db_data.append(name_and_grades)
+        except TypeError:
+            continue
+    cursor.close()
+    db.close()
+    return db_data
+
 subNameExcel = {
     'english': 'english',
     'spanish b': 'spanishB',
@@ -386,3 +431,4 @@ def student_grade(data):
     cursor.close()
     db.close()
 
+print(get_final_grades())
