@@ -296,14 +296,38 @@ def get_final_grades():
         name_and_grades = []
         grades = []
         name_and_grades.append(i[0])
-        for _ in range(6):
-            temp = Predictor(i[2], i[3], i[4], i[5], get_boundary(i[1]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
-            temp.pop()
-            temp.pop()
-            grades.append(temp[0])
-        predictedgrade = grades[0] + grades[1] + grades[2] + grades[3] + grades[4] + grades[5]
-        name_and_grades.append(predictedgrade)
-        db_data.append(name_and_grades)
+        
+        temp1 = Predictor(i[2], i[3], i[4], i[5], get_boundary(i[1]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp2 = Predictor(i[7], i[8], i[9], i[10], get_boundary(i[6]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp3 = Predictor(i[12], i[13], i[14], i[15], get_boundary(i[11]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp4 = Predictor(i[17], i[18], i[19], i[20], get_boundary(i[16]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp5 = Predictor(i[22], i[23], i[24], i[25], get_boundary(i[21]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp6 = Predictor(i[27], i[28], i[29], i[30], get_boundary(i[26]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
+        temp1.pop()
+        temp1.pop()
+        temp2.pop()
+        temp2.pop()
+        temp3.pop()
+        temp3.pop()
+        temp4.pop()
+        temp4.pop()
+        temp5.pop()
+        temp5.pop()
+        temp6 = list(temp6)
+        temp6.pop()
+        temp6.pop()
+        grades.append(temp1[0])
+        grades.append(temp2[0])
+        grades.append(temp3[0])
+        grades.append(temp4[0])
+        grades.append(temp5[0])
+        grades.append(temp6[0])
+        try:
+            predictedgrade = grades[0] + grades[1] + grades[2] + grades[3] + grades[4] + grades[5]
+            name_and_grades.append(predictedgrade)
+            db_data.append(name_and_grades)
+        except TypeError:
+            continue
     cursor.close()
     db.close()
     return db_data
@@ -406,3 +430,5 @@ def student_grade(data):
     db.commit()
     cursor.close()
     db.close()
+
+print(get_final_grades())
