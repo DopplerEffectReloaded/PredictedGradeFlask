@@ -48,7 +48,13 @@ def view_grades_subject():
     if request.method == 'POST':
         subject = request.form['subject']
         return render_template('gradeView.html', subject = f'{subName[subject[:-2]]} {subject[-2:]}', data = get_grades(subject))
-    
+
+@app.route('/view_grades/all', methods = ['GET', 'POST'])
+def view_all_grades():
+    if request.method == 'POST':
+        return render_template('grade_Students.html', data = get_final_grades())
+
+
 @app.route('/boundary_set', methods=['GET', 'POST'])
 def boundary_set():
     if request.method == 'POST':
@@ -98,7 +104,7 @@ def subject():
         curr_subject = request.form['subject']
         boundary = get_boundary(curr_subject)[:-1]
         for i in range(len(boundary)): boundary[i] += 1
-        return render_template('boundarySet.html', subject_name = f'{subName[curr_subject[:-2]]} {curr_subject[-2:]}', subject = curr_subject, current_boundaries = boundary)
+        return render_template('boundarySet.html', subject_name = f'{subName[curr_subject[:-2]]} {curr_subject[-2:]}', subject = curr_subject, current_boundaries = boundary)  
 
 if __name__ == '__main__':
   app.run()
