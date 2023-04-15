@@ -4,24 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Subjects</title>
 	<style>
-		/* CSS for buttons */
 		button {
-			background-color: #4CAF50; /* Green background color */
-			border: none; /* Remove border */
-			color: white; /* White text color */
-			padding: 10px 20px; /* Padding */
-			text-align: center; /* Center text */
-			text-decoration: none; /* Remove underline */
-			display: inline-block; /* Display as inline-block */
-			font-size: 16px; /* Font size */
-			margin: 4px 2px; /* Margin */
-			cursor: pointer; /* Cursor on hover */
-			border-radius: 5px; /* Rounded corners */
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 5px;
 		}
 
-		/* CSS for button hover effect */
 		button:hover {
-			background-color: #3e8e41; /* Darker green */
+			background-color: #3e8e41;
 		}
         .back-btn {
 			background-color: green;
@@ -40,7 +38,6 @@
 <img src="../static/logo.jpg" width="180" height="81">
 <body>
     <h1>Select the subject for which you would like to view grades</h1>
-	<!-- Button list -->
 	<form method="POST" action="/view_grades/subject">
 		<button type="submit" name="subject" value="englishHL">English HL</button>
 		<button type="submit" name="subject" value="englishSL">English SL</button>
