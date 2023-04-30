@@ -430,3 +430,4 @@ def student_grade(data):
     db.commit()
     cursor.close()
     db.close()
+                                                                                                                                                
