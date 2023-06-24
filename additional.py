@@ -64,9 +64,6 @@ subName = {
 }
 
 def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, weightagePE3, weightagePE1Y2):
-    '''This function takes your marks as input and then predicts 
-    how many marks you need to obtain in your next exam to get the next grade according to the 
-    IB grade boundaries for all the exams'''
     
     if PE1 is None:
         return ('Incomplete information', 'Incomplete information', 'Incomplete information')
@@ -81,13 +78,19 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             if weightagePE1*PE1 >= weightagePE1*d:
                 current_grade += 1
 
-        future_grade  = current_grade + 1
-        if (future_grade - 7) >= 1:
-            future_grade = 7
+        future_grades = []
+        for i in range(current_grade, 8):
+            boundary = grade_boundary[i - 2]
+            marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
+            future_grades.append((i, round(marks, 1)))
 
-        boundary = grade_boundary[future_grade-2]
-        future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
-        return ([current_grade, future_grade, round(future_marks, 1)])
+        # future_grade  = current_grade + 1
+        # if (future_grade - 7) >= 1:
+        #     future_grade = 7
+
+        # boundary = grade_boundary[future_grade-2]
+        # future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
+        return ([current_grade, future_grades])
 
     elif PE3 is None:
         y = weightagePE1*PE1 + weightagePE2*PE2   
@@ -99,13 +102,19 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             if (weightagePE1*PE1 + weightagePE2*PE2) >= (weightagePE1*f) + (weightagePE2*f):
                 current_grade += 1
 
-        future_grade  = current_grade + 1
-        if (future_grade - 7) >= 1:
-            future_grade = 7
+        future_grades = []
+        for i in range(current_grade, 8):
+            boundary = grade_boundary[i - 2]
+            marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
+            future_grades.append((i, round(marks, 1)))
         
-        boundary = grade_boundary[future_grade-2]
-        future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
-        return ([current_grade, future_grade, round(future_marks, 1)])
+        # future_grade  = current_grade + 1
+        # if (future_grade - 7) >= 1:
+        #     future_grade = 7
+        
+        # boundary = grade_boundary[future_grade-2]
+        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
+        return ([current_grade, future_grades])
     
     elif PE_Y2 is None:
         z = weightagePE1*PE1 + weightagePE2*PE2 + weightagePE3*PE3
@@ -117,13 +126,19 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j):
                 current_grade += 1
 
-        future_grade  = current_grade + 1
-        if (future_grade - 7) >= 1:
-            future_grade = 7
+        future_grades = []
+        for i in range(current_grade, 8):
+            boundary = grade_boundary[i - 2]
+            marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
+            future_grades.append((i, round(marks, 1)))
         
-        boundary = grade_boundary[future_grade-2]
-        future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
-        return ([current_grade, future_grade, round(future_marks, 1)])
+        # future_grade  = current_grade + 1
+        # if (future_grade - 7) >= 1:
+        #     future_grade = 7
+        
+        # boundary = grade_boundary[future_grade-2]
+        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
+        return ([current_grade, future_grades])
     else:
         z = weightagePE1*PE1 + weightagePE2*PE2 + weightagePE3*PE3 + weightagePE1Y2*PE_Y2
         current_grade = 1
@@ -135,7 +150,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
                 current_grade += 1
         future_grade = 'N/A, all exams have been taken'
         future_marks = 'N/A, all exams have been taken'
-        return ([current_grade, future_grade, future_marks])
+        return ([current_grade, []])
 
 def is_admin(email, password):
     db = mysql.connector.connect(**db_details)
@@ -219,48 +234,42 @@ def parse_db(uid):
                         'sub1_PE3': db_data[3],
                         'sub1_PEY2': db_data[4],
                         'sub1_grade': temp_1[0],
-                        'sub1_nextGrade': temp_1[1],
-                        'sub1_nextMarks': temp_1[2],
+                        'sub1_next_grades': temp_1[1],
                         'subject_2': f'{subName[db_data[5][:-2]]} {db_data[5][-2:]}',
                         'sub2_PE1': db_data[6],
                         'sub2_PE2': db_data[7],
                         'sub2_PE3': db_data[8],
                         'sub2_PEY2': db_data[9],
                         'sub2_grade': temp_2[0],
-                        'sub2_nextGrade': temp_2[1],
-                        'sub2_nextMarks': temp_2[2],
+                        'sub2_next_grades': temp_2[1],
                         'subject_3': f'{subName[db_data[10][:-2]]} {db_data[10][-2:]}',
                         'sub3_PE1': db_data[11],
                         'sub3_PE2': db_data[12],
                         'sub3_PE3': db_data[13],
                         'sub3_PEY2': db_data[14],
                         'sub3_grade': temp_3[0],
-                        'sub3_nextGrade': temp_3[1],
-                        'sub3_nextMarks': temp_3[2],
+                        'sub3_next_grades': temp_3[1],
                         'subject_4': f'{subName[db_data[15][:-2]]} {db_data[15][-2:]}',
                         'sub4_PE1': db_data[16],
                         'sub4_PE2': db_data[17],
                         'sub4_PE3': db_data[18],
                         'sub4_PEY2': db_data[19],
                         'sub4_grade': temp_4[0],
-                        'sub4_nextGrade': temp_4[1],
-                        'sub4_nextMarks': temp_4[2],
+                        'sub4_next_grades': temp_4[1],
                         'subject_5': f'{subName[db_data[20][:-2]]} {db_data[20][-2:]}',
                         'sub5_PE1': db_data[21],
                         'sub5_PE2': db_data[22],
                         'sub5_PE3': db_data[23],
                         'sub5_PEY2': db_data[24],
                         'sub5_grade': temp_5[0],
-                        'sub5_nextGrade': temp_5[1],
-                        'sub5_nextMarks': temp_5[2],
+                        'sub5_next_grades': temp_5[1],
                         'subject_6': f'{subName[db_data[25][:-2]]} {db_data[25][-2:]}',
                         'sub6_PE1': db_data[26],
                         'sub6_PE2': db_data[27],
                         'sub6_PE3': db_data[28],
                         'sub6_PEY2': db_data[29],
                         'sub6_grade': temp_6[0],
-                        'sub6_nextGrade': temp_6[1],
-                        'sub6_nextMarks': temp_6[2],
+                        'sub6_next_grades': temp_6[1]
                         }
     return form_values
 
