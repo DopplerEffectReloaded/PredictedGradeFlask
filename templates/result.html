@@ -52,8 +52,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub1_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub1_grade}}</p>
-      <p>Next grade possible: {{form.sub1_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub1_nextMarks}}</p>
+
+      {% if form.sub1_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+
+      {% for grade in form.sub1_next_grades %}
+        <p>Minimum marks needed for {{grade[0]}}: {{grade[1]}} </p>
+      {% endfor %}
+
     </section>
     <section>
       <h1>{{form.subject_2}}</h1>
@@ -64,8 +71,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub2_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub2_grade}}</p>
-      <p>Next grade possible: {{form.sub2_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub2_nextMarks}}</p>
+
+      {% if form.sub2_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+
+      {% for grade in form.sub2_next_grades %}
+        <p>Minimum marks needed for {{grade[0]}}: {{grade[1]}} </p>
+      {% endfor %}
+
     </section>
     <section>
       <h1>{{form.subject_3}}</h1>
@@ -76,8 +90,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub3_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub3_grade}}</p>
-      <p>Next grade possible: {{form.sub3_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub3_nextMarks}}</p>
+
+      {% if form.sub3_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+      
+      {% for grade in form.sub3_next_grades %}
+        <p>Minimum marks needed for {{grade[0]}}: {{grade[1]}} </p>
+      {% endfor %}
+
     </section>
     <section>
       <h1>{{form.subject_4}}</h1>
@@ -88,8 +109,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub4_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub4_grade}}</p>
-      <p>Next grade possible: {{form.sub4_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub4_nextMarks}}</p>
+
+      {% if form.sub4_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+
+      {% for grade in form.sub4_next_grades %}
+        <p>Minimum marks needed for {{grade[0]}}: {{grade[1]}} </p>
+      {% endfor %}
+
     </section>
     <section>
       <h1>{{form.subject_5}}</h1>
@@ -100,8 +128,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub5_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub5_grade}}</p>
-      <p>Next grade possible: {{form.sub5_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub5_nextMarks}}</p>
+
+      {% if form.sub5_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+
+      {% for grade in form.sub5_next_grades %}
+        <p>Minimum marks needed for {{grade[0]}}: {{grade[1]}} </p>
+      {% endfor %}
+
     </section>
     <section>
       <h1>{{form.subject_6}}</h1>
@@ -112,8 +147,15 @@
         <div class="marks-variable">PEY2 Marks: {{form.sub6_PEY2}}</div>
       </div>
       <p>Current grade: {{form.sub6_grade}}</p>
-      <p>Next grade possible: {{form.sub6_nextGrade}}</p>
-      <p>Minimum marks needed for next possible grade: {{form.sub6_nextMarks}}</p>
+
+      {% if form.sub6_next_grades|length == 0 %}
+        <p>All exams have been taken.</p>
+      {% endif %}
+
+      {% for grade in form.sub6_next_grades %}
+        <p>Minimum marks needed for grade {{grade[0]}} in next exam: {{grade[1]}} </p>
+      {% endfor %}
+      
     </section>
   </body>
 </html>
