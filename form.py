@@ -61,7 +61,7 @@ def boundary_set():
         subject = request.form['subject']
         if not request.form['grade_2'] or not request.form['grade_3'] or not request.form['grade_4'] or not request.form['grade_5'] or not request.form['grade_6'] or not request.form['grade_7']:
             boundary = globals().get(subject)
-            message = f'Boundary for {subName[subject[:-2]]} {subject[-2:]} updated to 2019 grade boundaries.'
+            message = f'Boundary for {subName[subject[:-2]]} {subject[-2:]} updated to 2023 grade boundaries.'
             
         else:
             boundary = [int(request.form['grade_2']) - 1, int(request.form['grade_3']) - 1, int(request.form['grade_4']) - 1, int(request.form['grade_5']) - 1, int(request.form['grade_6']) - 1, int(request.form['grade_7']) - 1, 100]
