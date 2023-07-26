@@ -86,7 +86,6 @@ def finish():
         xls = openpyxl.load_workbook(file)
         data = xls.active
         
-        # df = pd.read_excel(file)
         try:
             student_grade(data)
             return render_template('adminHome.html', message = 'Grades entered successfully')

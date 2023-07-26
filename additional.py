@@ -83,13 +83,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
             future_grades.append((i, round(marks, 1)))
-
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
         return ([current_grade, future_grades])
 
     elif PE3 is None:
@@ -107,13 +100,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
             future_grades.append((i, round(marks, 1)))
-        
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-        
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
         return ([current_grade, future_grades])
     
     elif PE_Y2 is None:
@@ -131,13 +117,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
             future_grades.append((i, round(marks, 1)))
-        
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-        
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
         return ([current_grade, future_grades])
     else:
         z = weightagePE1*PE1 + weightagePE2*PE2 + weightagePE3*PE3 + weightagePE1Y2*PE_Y2
@@ -148,8 +127,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j) + (weightagePE1Y2*j):
                 current_grade += 1
-        future_grade = 'N/A, all exams have been taken'
-        future_marks = 'N/A, all exams have been taken'
         return ([current_grade, []])
 
 def is_admin(email, password):
