@@ -92,7 +92,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
 
             f = grade_boundary[i]
 
-            if (weightagePE1*PE1 + weightagePE2*PE2) >= (weightagePE1*f) + (weightagePE2*f):
+            if y >= (weightagePE1*f) + (weightagePE2*f):
                 current_grade += 1
 
         future_grades = []
