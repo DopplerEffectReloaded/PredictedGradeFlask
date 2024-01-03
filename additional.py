@@ -7,37 +7,37 @@ PE2_WEIGHTAGE = 0.1
 PE3_WEIGHTAGE = 0.3
 PEY_WEIGHTAGE = 0.4
 
-englishHL = [12, 28, 45, 58, 68, 82, 100]
-englishSL = [12, 28, 44, 58, 68, 82, 100]
-spanishBSL = [13, 29, 48, 61, 73, 86, 100]
-frenchBSL = [14, 29, 46, 59, 72, 85, 100]
-hindiBSL = [8, 19, 34, 48, 63, 78, 100]
-spanishABSL = [11, 25, 41, 56, 70, 84, 100]
-frenchABSL = [15, 33, 48, 61, 71, 83, 100]
-math_aaHL = [3, 11, 23, 37, 52, 68, 100]
-math_aiHL = [3, 9, 18, 32, 46, 61, 100]
-math_aaSL = [3, 11, 22, 39, 57, 71, 100]
-math_aiSL = [3, 12, 24, 38, 54, 69, 100]
-physicsHL = [14, 25, 38, 48, 58, 68, 100]
-physicsSL = [13, 24, 35, 45, 56, 66, 100]
-chemistryHL = [15, 30, 42, 53, 65, 76, 100]
-chemistrySL = [14, 28, 43, 54, 64, 75, 100]
-biologyHL = [15, 27, 41, 54, 67, 80, 100]
-biologySL = [14, 26, 41, 54, 65, 78, 100]
-psychologyHL = [9, 19, 36, 49, 60, 74, 100]
-psychologySL = [10, 22, 37, 49, 59, 71, 100]
+englishHL = [12, 25, 39, 53, 65, 79, 100]
+englishSL = [10, 24, 37, 52, 64, 78, 100]
+spanishBSL = [8, 19, 32, 48, 65, 80, 100]
+frenchBSL = [9, 21, 35, 50, 66, 81, 100]
+hindiBSL = [11, 25, 34, 50, 67, 83, 100]
+spanishABSL = [11, 25, 39, 53, 66, 79, 100]
+frenchABSL = [11, 25, 42, 54, 67, 79, 100]
+math_aaHL = [12, 20, 29, 42, 56, 69, 100]
+math_aiHL = [11, 22, 31, 43, 56, 67, 100]
+math_aaSL = [8, 16, 28, 41, 56, 74, 100]
+math_aiSL = [10, 21, 32, 47, 62, 76, 100]
+physicsHL = [13, 23, 36, 46, 57, 68, 100]
+physicsSL = [11, 21, 34, 44, 54, 64, 100]
+chemistryHL = [15, 26, 38, 50, 63, 75, 100]
+chemistrySL = [14, 27, 37, 48, 59, 71, 100]
+biologyHL = [14, 24, 35, 49, 63, 76, 100]
+biologySL = [14, 25, 37, 49, 61, 73, 100]
+psychologyHL = [9, 21, 34, 48, 60, 73, 100]
+psychologySL = [10, 23, 35, 47, 60, 73, 100]
 digital_societiesHL = [12, 25, 40, 51, 60, 71, 100]
 digital_societiesSL = [10, 22, 34, 46, 57, 69, 100]
-global_politicsHL = [10, 21, 35, 47, 59, 72, 100]
-global_politicsSL = [10, 22, 36, 45, 59, 68, 100]
-visual_artsHL = [12, 25, 40, 54, 70, 84, 100]
-visual_artsSL = [12, 25, 40, 53, 70, 84, 100]
-economicsHL = [13, 26, 37, 49, 62, 74, 100]
-economicsSL = [11, 25, 38, 50, 63, 75, 100]
-business_managementHL = [13, 27, 37, 48, 57, 68, 100]
-business_managementSL = [15, 32, 44, 53, 66, 76, 100]
-computer_scienceHL = [15, 32, 44, 52, 60, 69, 100]
-computer_scienceSL = [14, 20, 43, 51, 60, 68, 100]
+global_politicsHL = [10, 22, 34, 46, 58, 70, 100]
+global_politicsSL = [9, 21, 32, 42, 53, 63, 100]
+visual_artsHL = [10, 21, 38, 52, 65, 80, 100]
+visual_artsSL = [10, 21, 33, 50, 64, 80, 100]
+economicsHL = [11, 24, 35, 47, 61, 73, 100]
+economicsSL = [12, 25, 39, 50, 61, 72, 100]
+business_managementHL = [15, 30, 40, 49, 58, 68, 100]
+business_managementSL = [12, 25, 36, 48, 61, 72, 100]
+computer_scienceHL = [14, 29, 40, 51, 61, 72, 100]
+computer_scienceSL = [14, 29, 43, 53, 63, 73, 100]
 essHL = [29, 39, 49, 59, 71, 84, 100]
 essSL = [29, 39, 49, 59, 71, 84, 100]
 
@@ -83,13 +83,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
             future_grades.append((i, round(marks, 1)))
-
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2))-weightagePE1*PE1)/weightagePE2
         return ([current_grade, future_grades])
 
     elif PE3 is None:
@@ -99,7 +92,7 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
 
             f = grade_boundary[i]
 
-            if (weightagePE1*PE1 + weightagePE2*PE2) >= (weightagePE1*f) + (weightagePE2*f):
+            if y >= (weightagePE1*f) + (weightagePE2*f):
                 current_grade += 1
 
         future_grades = []
@@ -107,13 +100,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
             future_grades.append((i, round(marks, 1)))
-        
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-        
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3)) - y)/weightagePE3
         return ([current_grade, future_grades])
     
     elif PE_Y2 is None:
@@ -131,13 +117,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
             boundary = grade_boundary[i - 2]
             marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
             future_grades.append((i, round(marks, 1)))
-        
-        # future_grade  = current_grade + 1
-        # if (future_grade - 7) >= 1:
-        #     future_grade = 7
-        
-        # boundary = grade_boundary[future_grade-2]
-        # future_marks = ((boundary*(weightagePE1+weightagePE2+weightagePE3+weightagePE1Y2)) - z)/weightagePE1Y2
         return ([current_grade, future_grades])
     else:
         z = weightagePE1*PE1 + weightagePE2*PE2 + weightagePE3*PE3 + weightagePE1Y2*PE_Y2
@@ -148,8 +127,6 @@ def Predictor(PE1, PE2, PE3, PE_Y2, grade_boundary, weightagePE1, weightagePE2, 
 
             if z >= (weightagePE1*j) + (weightagePE2*j) + (weightagePE3*j) + (weightagePE1Y2*j):
                 current_grade += 1
-        future_grade = 'N/A, all exams have been taken'
-        future_marks = 'N/A, all exams have been taken'
         return ([current_grade, []])
 
 def is_admin(email, password):
@@ -313,17 +290,10 @@ def get_final_grades():
         temp5 = Predictor(i[22], i[23], i[24], i[25], get_boundary(i[21]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         temp6 = Predictor(i[27], i[28], i[29], i[30], get_boundary(i[26]), PE1_WEIGHTAGE, PE2_WEIGHTAGE, PE3_WEIGHTAGE, PEY_WEIGHTAGE)
         temp1.pop()
-        temp1.pop()
-        temp2.pop()
         temp2.pop()
         temp3.pop()
-        temp3.pop()
-        temp4.pop()
         temp4.pop()
         temp5.pop()
-        temp5.pop()
-        temp6 = list(temp6)
-        temp6.pop()
         temp6.pop()
         grades.append(temp1[0])
         grades.append(temp2[0])
@@ -439,6 +409,3 @@ def student_grade(data):
     db.commit()
     cursor.close()
     db.close()
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
